@@ -1,0 +1,27 @@
+/* Image{
+    margin-right: auto;
+    margin-left: auto; */
+
+
+Image:hover{
+    opacity: 0.5;
+}
+
+.sites{
+    margin-top:25% ;
+    text-align: center;
+ }
+ .sites h2{
+   margin-top: 20%;
+ }
+
+.divi{
+    box-shadow: 0 0 0.7142857142857143rem #cccccc;
+    cursor: pointer;
+  }
+  .white{
+    /* background-image: url('../../../images/white4.png'); */
+    background-size: cover;
+    margin-top: 0;
+  }
+      

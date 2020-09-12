@@ -1,0 +1,12 @@
+.Logo {
+    /* background-image: url(../../assest/images/logo.png); */
+    height:100% ;
+    padding: 8px;
+    box-sizing: border-box;
+    
+
+
+  }
+  .Logo img{
+    height:100% ;
+  }
