@@ -11,6 +11,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import Thankyou from './ThankYou';
 
 class Sendform extends Component {
     constructor(props) {
@@ -25,8 +26,8 @@ class Sendform extends Component {
             walking:false,
             quiteplace:false,
             families: false,
-            accessibility:false
-
+            accessibility:false,
+            showmessage:false
       
     }
     this.onChangeHandler=this.onChangeHandler.bind(this);
@@ -84,13 +85,22 @@ ContinueHandler(event){
     // .catch(error => {
     // this.setState({loading: false, purchasing:false});
     // });
+
+    this.thankyoubutton();
+
 }
+
 onChangeHandler(event){
     // console.log(event.target.value);
     this.setState({[event.target.name] : event.target.value});
    console.log('the state updated withonChangeHandler '+ this.state)
     
 }
+
+thankyoubutton() {
+this.setState({showmessage:true})
+
+};
 render() {
 const {name, email, sitename, location, description, area, walking, quiteplace, families, accessibility} = this.state;
     return (
@@ -98,8 +108,8 @@ const {name, email, sitename, location, description, area, walking, quiteplace, 
         <div className="sendform">
             <ul>
                 <li> <Link to="/sites">מרכז</Link></li>
-                <li> <Link to="#">דרום</Link></li>
-                <li> <Link to="#">צפון</Link></li>
+                <li> <Link to="/sites">דרום</Link></li>
+                <li> <Link to="/sites">צפון</Link></li>
                 <li> <Link to="/info">?הידעת</Link></li>
                 <li> <Link to="/sendform">שלח לנו המלצה</Link></li>
             </ul>
@@ -116,6 +126,10 @@ const {name, email, sitename, location, description, area, walking, quiteplace, 
 
                         <br />
                         <Form >
+                     <div className="formdetails"
+                     style= {{
+                     display: this.state.showmessage? 'none': 'block'
+                    }} >
                             <Row className="rowform">
                                 <Form.Group as={Row} controlId="name"  >
                                     <Form.Label column sm={2}>
@@ -202,9 +216,11 @@ const {name, email, sitename, location, description, area, walking, quiteplace, 
                                 <Form.Group as={Row} controlId="submit">
                                     <Button variant="info" type="submit" dir="rtl" className="formbutton" onClick={this.ContinueHandler}>
                                         שלח המלצה
-        </Button>
+                                </Button>
                                 </Form.Group>
                             </div>
+                            </div>
+                            <Thankyou showmessage={this.state.showmessage} />
                         </Form>
 
                     </Container>

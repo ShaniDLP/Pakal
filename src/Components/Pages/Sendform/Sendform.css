@@ -34,6 +34,7 @@
     opacity: 0.8;
     width: 50%;
     margin: auto;
+    /* z-index: -10; */
     
     /* padding-right: 2%;
     padding-left: 2%; */
@@ -42,9 +43,10 @@
     /* border-style: double; */
     /* filter: blur(5px); */
 
-
 }
-
+.formdetails{
+    z-index: -5;
+}
 .form form form.Control {
     color: black !important;
 }
@@ -95,6 +97,14 @@ hr {
     margin-right: 5%; */
 /* } */
 
+.thankyoumessage p {
+    font-size: 72px;
+    padding-top: 2%;
+   
+ 
+}
+
+
 @media (max-width: 575px) {
     .form form{
       width: 70%;
@@ -113,6 +123,10 @@ hr {
     margin-left: auto;
     align-items: center;
     }
+    .thankyoumessage p{
+        font-size: 36px;
+     
+    }
     /* .form .formbutton{
         position: relative;
         float: left;
@@ -127,4 +141,9 @@ hr {
        margin-left: auto;
        align-items: center;
        } 
+
+       .thankyoumessage p{
+        font-size: 36px;
+     
+    }
 }
