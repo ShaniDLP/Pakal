@@ -1,118 +1,160 @@
 import React, { Component } from 'react';
-import Image from 'react-bootstrap/Image';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Sites.css'
-import { Row, Col, Container, CardGroup, CardDeck } from "react-bootstrap";
+import { Row, Col, Container, CardDeck } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Cards from './Cards';
 import Filters from '../../UI/Filters/Filters';
-
-
-// import Image from '@bit/react-bootstrap.react-bootstrap.image';
 import ToolBar from '../../Navigation/ToolBar/Toolbar';
 import Modal from '../../Home/Modal/Modal';
 import { datasites } from './datasites';
-import bonim from '../../../images/bonim.jpg';
-import sataf from '../../../images/sataf.jpg';
-import talshahar from '../../../images/talshahar.jpg';
-import tayasim from '../../../images/tayasim.jpg';
-import motza from '../../../images/motza.jpg';
-import artur3 from '../../../images/artur3.jpg';
-import arugot from '../../../images/north/mitzpe_shaul.jpg';
-import shaul from '../../../images/south/nahal_arugot2.jpg';
 import dan from '../../../images/north/nahal_dan.jpg';
-import ain_dayag from '../../../images/north/ain_dayag.jpg';
-import helboni from '../../../images/north/brehat_helboni.jpg';
-import hofhasharon from '../../../images/hof_hasharon.jpg';
-import saar from '../../../images/north/saar.jpg';
-import rosh_anikra from '../../../images/north/rosh_hanikra.jpg';
-import yardenit from '../../../images/north/yardenit44.jpg';
-import gilabon from '../../../images/north/gilabon.jpg';
-import ahula from '../../../images/north/agamon_ahula.jpg';
-import ain_shoko from '../../../images/north/ain_shoko.jpg';
-import beeri from '../../../images/south/beeri.jpg';
-import nahal_og from '../../../images/south/nahal_og.jpg';
-import sidna_ali from '../../../images/sidna_ali.jpg';
+
 
 
 
 const filters = [
-  {name:"נגיש לנכים", status: false},
-  {name:"מסלול הליכה", status: false},
-  {name:"מקום שקט", status: false},
-  {name:"מתאים למשפחות", status: false}
+  { name: "נגיש לנכים", value: 1, status: false },
+  { name: "מסלול הליכה", value: 2, status: false },
+  { name: "מקום שקט", value: 3, status: false },
+  { name: "מתאים למשפחות", value: 4, status: false }
 ];
+const areas = [
+  { name: "north", status: false },
+  { name: "center", status: false },
+  { name: "south", status: false }
+];
+
 
 class Sites extends Component {
   state = {
-    datasites, 
+    datasites,
     filters,
+    areas,
     all: true,
     show: false,
-    selectedSiteIndex: 2,
-    fadeout: false
+    selectedSiteIndex: 0,
+    fadeout: false,
+    areaIndex: 0
   }
 
-  setFilter = (e) =>{
+  // נקרא בלחיצה. 
+  setFilter = (e) => {
     e.preventDefault();
     const { filters, all } = this.state;
-    const { index } = e.currentTarget.dataset;
-   
-    filters[index].status = !filters[index].status;
+    // const { areas } = this.state;
+    const { index, areaKey } = e.currentTarget.dataset;
+    let areaIndex = parseInt(e.currentTarget.dataset.areakey);
+
+    if(filters[index]) {
+      filters[index].status = !filters[index].status;
+    }
+
+    console.log('areaKey: ' + areaIndex);
+
     this.setState({
-      filters
+      filters,
+      areaIndex
     });
-    
-    this.updateFilters();
-    this.updateImgs();
-  }
+
   
-  setAll = () =>{
-    const {filters} = this.state;
-    
-    filters.forEach( 
+    this.updateFilters();
+    this.updateImgs(areaIndex);
+    // this.updateArea();
+  }
+  //make all filtes checkbox false except 'All'
+  setAll = () => {
+    const { filters } = this.state;
+
+    filters.forEach(
       filter => {
         filter.status = false;
       }
     );
-    
+
     this.setState({
       all: true,
       filters
     });
   }
-  
-  updateFilters(){
-    const allFiltersTrue = filters.every( filter => filter.status === true);
-    const allFiltersFalse = filters.every( filter => filter.status === false);
-    
-    if(allFiltersTrue||allFiltersFalse){
+  //if user selected the all filters it changes to 'all' button
+  updateFilters() {
+    const allFiltersTrue = filters.every(filter => filter.status === true);
+    const allFiltersFalse = filters.every(filter => filter.status === false);
+
+    if (allFiltersTrue || allFiltersFalse) {
       this.setAll();
-    }else{
+    } else {
       this.setState({
         all: false
       });
-    } 
+    }
   }
-  
-  updateImgs() {
-    const { filters, all } = this.state;
+
+  //for each element that the tag=filterName push to the array
+  updateImgs(aKey) {
+    const { filters, all, areas } = this.state;
+    let aIndex = aKey;
     let newImgs = [];
     let a = 0;
-    
-    datasites.forEach((img, imgKey) => { 
-      filters.forEach((filter, filterKey)=> {  
-        if((img.tag==filter.name)&&(filter.status==true)){
+
+    datasites.forEach((img, imgKey) => {
+      filters.forEach((filter, filterKey) => {
+        //  && (img.area === areas[areaIndex].name)
+        if(areas[aIndex]) console.log("** " + aIndex + ' - ' + areas[aIndex].name + ' - ' + img.area);
+        else console.log(aIndex);
+        if ((filter.value in img.tag) && (areas[aIndex] && img.area === areas[aIndex].name || !areas[aIndex]) && (filter.status == true) && newImgs.indexOf(img) < 0) {
           newImgs[a] = img;
           a++;
         }
       })
     });
-        
-  this.setState({
+    //update the datasites with the new array     
+    this.setState({
       datasites: newImgs
     });
   }
+
+  // updateModal() {
+  //   datasites.map(site,  i) => 
+  //   this.setState(selectedSiteIndex : i)
+
+
+  //   }
+  // }
+  // setFilterToArea = (arename) => {
+  //   key.preventDefault();
+  //   const { areas } = this.state;
+  //   const { index } = key.currentTarget.dataset;
+
+  //   // filters[index].status = !filters[index].status;
+  //   this.setState({
+  //     areas
+  //   });
+
+  //   this.updateArea(areaname);
+  // }
+
+  // updateArea(showarea) {
+  //   const {areas} = this.state;
+  //   let newarea = [];
+  //   let b = 0;
+
+  //   datasites.forEach((img, imgKey) => { 
+  //     areas.forEach((pickedarea, filterKey)=> {  
+  //       if((img.area===showarea)&&(pickedarea.status==true)){
+  //         newarea[b] = img;
+  //         console.log('area');
+  //         b++;
+  //       }
+  //       else (pickedarea.status==false )
+  //     })
+  //   });
+
+  // this.setState({
+  //   datasites: newarea
+  //   });
+  // }
 
 
   fadeout = () => {
@@ -125,22 +167,17 @@ class Sites extends Component {
   }
   showModal = () => {
     this.setState({ show: true })
+    console.log('show modal!');
   }
 
-
-  showWalkingPath = () => {
-    const walking = this.state.site1.walkingpath;
-    if (walking) {
-      return "walking";
-    }
-  }
 
 
   render() {
 
     const datasite = datasites;
     let white = this.state.fadeout ? 'animation: fadeOut ease 8s' : 'opacity:1';
-    const {filters, all} = this.state;  
+    const { filters, all } = this.state;
+    // const areas = this.state;
 
     return (
       <div className="white">
@@ -154,218 +191,38 @@ class Sites extends Component {
               <Col><h5>{datasites[this.state.selectedSiteIndex].name} </h5>
                 <p>{datasites[this.state.selectedSiteIndex].description}</p>
                 <p>איך מגיעים:
-             {datasites[this.state.selectedSiteIndex].location}</p>
+                {datasites[this.state.selectedSiteIndex].location}</p>
               </Col>
             </Row>
           </Modal>
         </div>
 
-        <ToolBar />
+        <ToolBar onClick={this.setFilter  }/>
+
+
         <div className="sites">
           <h2> המלצות באיזור המרכז</h2>
           <hr />
-<Filters
-onClickAll={this.setAll}
-          all={all}
-          onClick={this.setFilter}
-          filters={filters}/>
+          <Filters
+            onClickAll={this.setAll}
+            all={all}
+            onClick={this.setFilter}
+            // onClick={() => { this.setFilter(); this.showModal(); }}
+            modalClosed={this.CancelHandler}
+            filters={filters} />
 
 
           <Container>
-          {(all)?(
-            <Cards imgs = {datasites}/>
-          ):(
-            <Cards imgs = {this.state.datasites}/>
-        )}
-          
-          </Container>
-
-
-          <Container>
-            <CardDeck style={{ paddingBottom: '30px' }}>
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={bonim}
-                  onClick={() => { this.setState({ selectedSiteIndex: 0 }); this.showModal(); this.fadeout() }}
-                  modalClosed={this.CancelHandler} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[0].name}</Card.Title>
-
-
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-
-                <Card.Img variant="top" src={sataf} onClick={() => { this.setState({ selectedSiteIndex: 1 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[1].name}</Card.Title>
-
-                </Card.Body>
-              </Card>
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={talshahar}
-                  onClick={() => { this.setState({ selectedSiteIndex: 2 }); this.showModal(); }}
-                  modalClosed={this.CancelHandler}
-                />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[2].name}</Card.Title>
-                </Card.Body>
-              </Card>
-            </CardDeck>
-
-
-            <CardDeck style={{ paddingBottom: '30px' }} >
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={artur3}
-                  onClick={() => { this.setState({ selectedSiteIndex: 3 }); this.showModal(); }}
-                  modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[3].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={motza} onClick={() => { this.setState({ selectedSiteIndex: 4 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[4].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={tayasim} onClick={() => { this.setState({ selectedSiteIndex: 5 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[5].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-            </CardDeck>
-
-            <CardDeck style={{ paddingBottom: '30px' }}>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={arugot} onClick={() => { this.setState({ selectedSiteIndex: 6 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[6].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={shaul} onClick={() => { this.setState({ selectedSiteIndex: 7 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[7].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={dan} onClick={() => { this.setState({ selectedSiteIndex: 8 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[8].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-            </CardDeck>
-            <CardDeck style={{ paddingBottom: '30px' }}>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={ain_dayag} onClick={() => { this.setState({ selectedSiteIndex: 9 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[9].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={helboni} onClick={() => { this.setState({ selectedSiteIndex: 10 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[10].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={hofhasharon} onClick={() => { this.setState({ selectedSiteIndex: 11 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[11].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-            </CardDeck>
-
-            <CardDeck style={{ paddingBottom: '30px' }}>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={saar} onClick={() => { this.setState({ selectedSiteIndex: 12 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[12].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={rosh_anikra} onClick={() => { this.setState({ selectedSiteIndex: 13 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[13].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={yardenit} onClick={() => { this.setState({ selectedSiteIndex: 14 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[14].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-            </CardDeck>
-            <CardDeck style={{ paddingBottom: '30px' }}>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={gilabon} onClick={() => { this.setState({ selectedSiteIndex: 15 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[15].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={ahula} onClick={() => { this.setState({ selectedSiteIndex: 16 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[16].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={ain_shoko} onClick={() => { this.setState({ selectedSiteIndex: 17 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[17].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-            </CardDeck>
-            <CardDeck style={{ paddingBottom: '30px' }} >
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={beeri} onClick={() => { this.setState({ selectedSiteIndex: 18 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = { bonim }} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[18].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={nahal_og} onClick={() => { this.setState({ selectedSiteIndex: 19 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = bonim} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[19].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-                <Card.Img variant="top" src={sidna_ali} onClick={() => { this.setState({ selectedSiteIndex: 20 }); this.showModal(); }} modalClosed={this.CancelHandler} onMouseOver={this.src = bonim} />
-                <Card.Body dir="rtl">
-                  <Card.Title>{datasites[20].name}</Card.Title>
-                </Card.Body>
-              </Card>
-
-            </CardDeck>
-
-
+            {(all) ? (
+              <Cards imgs={datasites} />
+            ) : (
+                <Cards imgs={this.state.datasites} />
+              )}
 
           </Container>
+
+
+
         </div>
 
       </div>
@@ -404,4 +261,188 @@ export default Sites;
 
 
 // כעושה אובר מחליף  את הרקע 
-// onMouseOver={e => (e.currentTarget.src ={sataf})}
+// onMouseOver={e => (e.currentTarget.src ={sataf})}   <Container>
+        //     <CardDeck style={{ paddingBottom: '30px' }}>
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={bonim}
+        //         onClick={() => { this.setState({ selectedSiteIndex: 0 }); this.showModal(); this.fadeout(); }}
+        //         modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[0].name}</Card.Title>
+
+
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+
+        //       <Card.Img variant="top" src={sataf} onClick={() => { this.setState({ selectedSiteIndex: 1 }); this.showModal(); }} modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[1].name}</Card.Title>
+
+        //       </Card.Body>
+        //     </Card>
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={talshahar}
+        //         onClick={() => { this.setState({ selectedSiteIndex: 2 }); this.showModal(); }}
+        //         modalClosed={this.CancelHandler}
+        //       />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[2].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+        //   </CardDeck>
+
+
+        //   <CardDeck style={{ paddingBottom: '30px' }} >
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={artur3}
+        //         onClick={() => { this.setState({ selectedSiteIndex: 3 }); this.showModal(); }}
+        //         modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[3].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={motza} onClick={() => { this.setState({ selectedSiteIndex: 4 }); this.showModal(); }} modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[4].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={tayasim} onClick={() => { this.setState({ selectedSiteIndex: 5 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[5].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //   </CardDeck>
+
+        //   <CardDeck style={{ paddingBottom: '30px' }}>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={arugot} onClick={() => { this.setState({ selectedSiteIndex: 6 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[6].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={shaul} onClick={() => { this.setState({ selectedSiteIndex: 7 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[7].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={dan} onClick={() => { this.setState({ selectedSiteIndex: 8 }); this.showModal(); }} modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[8].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //   </CardDeck>
+        //   <CardDeck style={{ paddingBottom: '30px' }}>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={ain_dayag} onClick={() => { this.setState({ selectedSiteIndex: 9 }); this.showModal(); }} modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[9].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={helboni} onClick={() => { this.setState({ selectedSiteIndex: 10 }); this.showModal(); }} modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[10].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={hofhasharon} onClick={() => { this.setState({ selectedSiteIndex: 11 }); this.showModal(); }} modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[11].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //   </CardDeck>
+
+        //   <CardDeck style={{ paddingBottom: '30px' }}>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={saar} onClick={() => { this.setState({ selectedSiteIndex: 12 }); this.showModal(); }} modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[12].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={rosh_anikra} onClick={() => { this.setState({ selectedSiteIndex: 13 }); this.showModal(); }} modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[13].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={yardenit} onClick={() => { this.setState({ selectedSiteIndex: 14 }); this.showModal(); }} modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[14].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //   </CardDeck>
+        //   <CardDeck style={{ paddingBottom: '30px' }}>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={gilabon} onClick={() => { this.setState({ selectedSiteIndex: 15 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[15].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={ahula} onClick={() => { this.setState({ selectedSiteIndex: 16 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[16].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={ain_shoko} onClick={() => { this.setState({ selectedSiteIndex: 17 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[17].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //   </CardDeck>
+        //   <CardDeck style={{ paddingBottom: '30px' }} >
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={beeri} onClick={() => { this.setState({ selectedSiteIndex: 18 }); this.showModal(); }} modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[18].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={nahal_og} onClick={() => { this.setState({ selectedSiteIndex: 19 }); this.showModal(); }} modalClosed={this.CancelHandler} />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[19].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
+        //       <Card.Img variant="top" src={sidna_ali} onClick={() => { this.setState({ selectedSiteIndex: 20 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
+        //       <Card.Body dir="rtl">
+        //         <Card.Title>{datasites[20].name}</Card.Title>
+        //       </Card.Body>
+        //     </Card>
+
+        //   </CardDeck>
+
+
+
+        // </Container>
