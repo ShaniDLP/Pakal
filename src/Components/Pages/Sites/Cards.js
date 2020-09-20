@@ -4,11 +4,11 @@ import { Row, Col, Container, CardGroup, CardDeck } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 
 
-const Cards = ({ imgs }) =>
+const Cards = ({ imgs, onClick, id }) =>
   <ul>
     {imgs.map(
       (img, i) =>
-        <li key={i}>
+        <li key={i} data-id={i} onClick={onClick}>
           <figure>
             <CardDeck >
               <Card style={{ width: '20rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer",marginBottom: '20px' }}>

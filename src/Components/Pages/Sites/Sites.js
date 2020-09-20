@@ -46,7 +46,7 @@ class Sites extends Component {
     const { index, areaKey } = e.currentTarget.dataset;
     let areaIndex = parseInt(e.currentTarget.dataset.areakey);
 
-    if(filters[index]) {
+    if (filters[index]) {
       filters[index].status = !filters[index].status;
     }
 
@@ -57,7 +57,7 @@ class Sites extends Component {
       areaIndex
     });
 
-  
+
     this.updateFilters();
     this.updateImgs(areaIndex);
     // this.updateArea();
@@ -92,18 +92,21 @@ class Sites extends Component {
   }
 
   //for each element that the tag=filterName push to the array
-  updateImgs(aKey) {
+  updateImgs(aIndex) {
     const { filters, all, areas } = this.state;
-    let aIndex = aKey;
     let newImgs = [];
     let a = 0;
 
     datasites.forEach((img, imgKey) => {
       filters.forEach((filter, filterKey) => {
-        //  && (img.area === areas[areaIndex].name)
-        if(areas[aIndex]) console.log("** " + aIndex + ' - ' + areas[aIndex].name + ' - ' + img.area);
-        else console.log(aIndex);
-        if ((filter.value in img.tag) && (areas[aIndex] && img.area === areas[aIndex].name || !areas[aIndex]) && (filter.status == true) && newImgs.indexOf(img) < 0) {
+
+        // if(areas[aIndex]) console.log("** " + aIndex + ' - ' + areas[aIndex].name + ' - ' + img.area);
+        // else console.log(aIndex);
+
+        if ((filter.value in img.tag) &&
+          (areas[aIndex] && img.area === areas[aIndex].name || !areas[aIndex]) &&
+          (filter.status == true) &&
+          newImgs.indexOf(img) < 0) {
           newImgs[a] = img;
           a++;
         }
@@ -115,47 +118,6 @@ class Sites extends Component {
     });
   }
 
-  // updateModal() {
-  //   datasites.map(site,  i) => 
-  //   this.setState(selectedSiteIndex : i)
-
-
-  //   }
-  // }
-  // setFilterToArea = (arename) => {
-  //   key.preventDefault();
-  //   const { areas } = this.state;
-  //   const { index } = key.currentTarget.dataset;
-
-  //   // filters[index].status = !filters[index].status;
-  //   this.setState({
-  //     areas
-  //   });
-
-  //   this.updateArea(areaname);
-  // }
-
-  // updateArea(showarea) {
-  //   const {areas} = this.state;
-  //   let newarea = [];
-  //   let b = 0;
-
-  //   datasites.forEach((img, imgKey) => { 
-  //     areas.forEach((pickedarea, filterKey)=> {  
-  //       if((img.area===showarea)&&(pickedarea.status==true)){
-  //         newarea[b] = img;
-  //         console.log('area');
-  //         b++;
-  //       }
-  //       else (pickedarea.status==false )
-  //     })
-  //   });
-
-  // this.setState({
-  //   datasites: newarea
-  //   });
-  // }
-
 
   fadeout = () => {
     this.setState({ fadeout: true });
@@ -165,10 +127,20 @@ class Sites extends Component {
   CancelHandler = () => {
     this.setState({ show: false })
   }
-  showModal = () => {
+  showModal = (site) => {
+    site.preventDefault();
     this.setState({ show: true })
     console.log('show modal!');
-  }
+
+    let areaIndex = site.currentTarget.dataset.id;
+    // let show = this.state.show;
+    let selectedSiteIndex= this.state.selectedSiteIndex;
+         this.setState({
+          selectedSiteIndex: areaIndex
+        })
+    
+    console.log(selectedSiteIndex+ 'selectedSiteIndex' + site.id + 'siteid');
+  };
 
 
 
@@ -186,7 +158,7 @@ class Sites extends Component {
             <Row>
               <Col>
                 <img style={{ width: '24rem', paddingTop: "15px" }}
-                  src={dan} />
+                  src={datasites[this.state.selectedSiteIndex].src} />
               </Col>
               <Col><h5>{datasites[this.state.selectedSiteIndex].name} </h5>
                 <p>{datasites[this.state.selectedSiteIndex].description}</p>
@@ -197,7 +169,7 @@ class Sites extends Component {
           </Modal>
         </div>
 
-        <ToolBar onClick={this.setFilter  }/>
+        <ToolBar onClick={this.setFilter} />
 
 
         <div className="sites">
@@ -214,9 +186,9 @@ class Sites extends Component {
 
           <Container>
             {(all) ? (
-              <Cards imgs={datasites} />
+              <Cards imgs={datasites} onClick={this.showModal} />
             ) : (
-                <Cards imgs={this.state.datasites} />
+                <Cards imgs={this.state.datasites} onClick={this.showModal} />
               )}
 
           </Container>
