@@ -144,9 +144,7 @@ nav > ul > li {
     background-size: cover;
     margin: auto(-50%,-50%);
   }
-  ul{
-      display: none;
-  }
+ 
 }
 
 

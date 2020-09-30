@@ -5,6 +5,7 @@ import './Sendform.css';
 // import { FirebaseDatabaseMutation } from "@react-firebase/database";
 import axios from '../../../Containers/axios-sites';
 import ToolBar from '../../Navigation/ToolBar/Toolbar';
+import Navigation from '../../Navigation/ToolBar/Navigation';
 import {
     BrowserRouter as Router,
     Switch,
@@ -106,13 +107,7 @@ const {name, email, sitename, location, description, area, walking, quiteplace, 
     return (
 
         <div className="sendform">
-            <ul>
-                <li> <Link to="/sites">מרכז</Link></li>
-                <li> <Link to="/sites">דרום</Link></li>
-                <li> <Link to="/sites">צפון</Link></li>
-                <li> <Link to="/info">?הידעת</Link></li>
-                <li> <Link to="/sendform">שלח לנו המלצה</Link></li>
-            </ul>
+          <Navigation/>
 
             <div className="form" dir="rtl">
                 <h2>שלח לנו המלצה </h2>

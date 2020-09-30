@@ -67,12 +67,13 @@
   .form p{
       text-align: center;
   }
-hr {
+.form hr {
     border: 0;
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0),  rgb(254, 255, 255), rgba(0, 0, 0, 0));
     width: 50%;
     color: rgb(232, 244, 255);
+    margin: auto;
 }
 .form .formbutton{
     /* position: relative;
@@ -100,10 +101,15 @@ hr {
 .thankyoumessage p {
     font-size: 72px;
     padding-top: 2%;
-   
  
 }
-
+#coffeelogo{
+    height: 3rem;
+    margin-right: 10px;
+    text-decoration: none;
+    list-style-type: none;
+    display: none;
+}
 
 @media (max-width: 575px) {
     .form form{
@@ -146,4 +152,20 @@ hr {
         font-size: 36px;
      
     }
+
+  
+}
+@media (max-width: 860px) {
+    #coffeelogo{
+        display: block;
+        margin-top:0;
+        height: 3rem;
+        margin-right: 10px;
+        text-decoration: none;
+        list-style-type: none;
+      }
+      .navdesktop{
+        display: none;
+    
+        }
 }
