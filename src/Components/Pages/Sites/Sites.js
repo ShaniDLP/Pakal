@@ -9,7 +9,7 @@ import ToolBar from '../../Navigation/ToolBar/Toolbar';
 import Modal from '../../Home/Modal/Modal';
 import { datasites } from './datasites';
 import dan from '../../../images/north/nahal_dan.jpg';
-
+import { withRouter } from 'react-router-dom'
 
 
 
@@ -25,17 +25,21 @@ const areas = [
   { name: "south", status: false }
 ];
 
+const AREAS = ["north", "center", "south"];
+const newfilter = ["מקום שקט", "מסלול הליכה", "מתאים למשפחות", "נגיש לנכים"];
 
 class Sites extends Component {
   state = {
     datasites,
-    filters,
     areas,
+    filters,
     all: true,
     show: false,
     selectedSiteIndex: 0,
     fadeout: false,
-    areaIndex: 0
+    areaIndex: 0,
+    filterArray: []
+
   }
 
   // נקרא בלחיצה. 
@@ -43,7 +47,7 @@ class Sites extends Component {
     e.preventDefault();
     const { filters, all } = this.state;
     // const { areas } = this.state;
-    const { index, areaKey } = e.currentTarget.dataset;
+    const { index } = e.currentTarget.dataset;
     let areaIndex = parseInt(e.currentTarget.dataset.areakey);
 
     if (filters[index]) {
@@ -92,21 +96,14 @@ class Sites extends Component {
   }
 
   //for each element that the tag=filterName push to the array
-  updateImgs(aIndex) {
+  updateImgs() {
     const { filters, all, areas } = this.state;
     let newImgs = [];
     let a = 0;
 
     datasites.forEach((img, imgKey) => {
       filters.forEach((filter, filterKey) => {
-
-        // if(areas[aIndex]) console.log("** " + aIndex + ' - ' + areas[aIndex].name + ' - ' + img.area);
-        // else console.log(aIndex);
-
-        if ((filter.value in img.tag) &&
-          (areas[aIndex] && img.area === areas[aIndex].name || !areas[aIndex]) &&
-          (filter.status == true) &&
-          newImgs.indexOf(img) < 0) {
+        if ((img.tag === filter.name) && (filter.status == true)) {
           newImgs[a] = img;
           a++;
         }
@@ -117,6 +114,7 @@ class Sites extends Component {
       datasites: newImgs
     });
   }
+
 
 
   fadeout = () => {
@@ -134,25 +132,78 @@ class Sites extends Component {
 
     let areaIndex = site.currentTarget.dataset.id;
     // let show = this.state.show;
-    let selectedSiteIndex= this.state.selectedSiteIndex;
-         this.setState({
-          selectedSiteIndex: areaIndex
-        })
-    
-    console.log(selectedSiteIndex+ 'selectedSiteIndex' + site.id + 'siteid');
+    let selectedSiteIndex = this.state.selectedSiteIndex;
+    this.setState({
+      selectedSiteIndex: areaIndex
+    })
+
+    console.log(selectedSiteIndex + 'selectedSiteIndex' + site.id + 'siteid');
   };
 
+  setArea = (area) => {
+    this.setState({ selectedArea: area });
+  };
 
+  // filtersites = () => {
+  //   if (this.state.filterArray.length === 0)
+  //     return datasites;
+  //   else {
+  //     return datasites.filter(site => site.area === areaName).filter(site => this.state.filterArray.some(constraint =>
+  //       site.some(obj => obj.tag === constraint)))
+  //   }
 
+  // };
+
+  hendleCheck = (event) => {
+    let newFilteredTag = this.state.filterArray;
+    if (event.target.checked) {
+      newFilteredTag.push(event.target.tag);
+      this.setFilter(newFilteredTag);
+    }
+    else {
+      newFilteredTag.splice(newFilteredTag.indexOf(event.target.tag), 1);
+      this.setState(newFilteredTag);
+    }
+  }
+  isChacked = () => {
+    return (this.state.filterArray.indexOf() >= 0)
+  }
   render() {
 
     const datasite = datasites;
     let white = this.state.fadeout ? 'animation: fadeOut ease 8s' : 'opacity:1';
     const { filters, all } = this.state;
     // const areas = this.state;
+    const areaName = this.props.match.params.areaName;
+    const filtertype = newfilter;
 
     return (
-      <div className="white">
+      <div className="sitespage">
+        <ToolBar />
+        <div className="sites">
+          <h2> המלצות באיזור ה{this.state.selectedArea}</h2>
+          <hr />
+          <Filters
+            onClickAll={this.setAll}
+            all={this.hendleCheck}
+            onClick={this.setFilter}
+            modalClosed={this.CancelHandler}
+            filters={filters}
+            checked={this.isChacked} />
+
+
+          <Container>
+          {(all) ? (
+            <Cards imgs={datasites && datasites.filter(site => site.area === areaName)} onClick={this.showModal} />
+          ) : (
+             <Cards imgs={ datasites.filter(site => site.area === areaName) && this.state.datasites} onClick={this.showModal} />
+            )}
+
+          </Container>
+
+
+
+        </div>
         <div>
           <Modal show={this.state.show} modalClosed={this.CancelHandler}>
             <Row>
@@ -163,40 +214,11 @@ class Sites extends Component {
               <Col><h5>{datasites[this.state.selectedSiteIndex].name} </h5>
                 <p>{datasites[this.state.selectedSiteIndex].description}</p>
                 <p>איך מגיעים:
-                {datasites[this.state.selectedSiteIndex].location}</p>
+              {datasites[this.state.selectedSiteIndex].location}</p>
               </Col>
             </Row>
           </Modal>
         </div>
-
-        <ToolBar onClick={this.setFilter} />
-
-
-        <div className="sites">
-          <h2> המלצות באיזור המרכז</h2>
-          <hr />
-          <Filters
-            onClickAll={this.setAll}
-            all={all}
-            onClick={this.setFilter}
-            // onClick={() => { this.setFilter(); this.showModal(); }}
-            modalClosed={this.CancelHandler}
-            filters={filters} />
-
-
-          <Container>
-            {(all) ? (
-              <Cards imgs={datasites} onClick={this.showModal} />
-            ) : (
-                <Cards imgs={this.state.datasites} onClick={this.showModal} />
-              )}
-
-          </Container>
-
-
-
-        </div>
-
       </div>
 
 
@@ -209,11 +231,25 @@ class Sites extends Component {
 
 
 
-export default Sites;
+export default withRouter(Sites);
 
 
 
 
+
+
+/* <Cards imgs={ this.state.datasites && datasites.filter(site => site.area === areaName)} onClick={this.showModal} /> */
+
+
+// .filter(site => site.tag.some(obj => filtertype.indexOf(obj) >= 0) || filtertype.length = 0)}
+// onClick={this.showModal
+
+
+     // {(all) ? (
+            //   <Cards imgs={datasites} onClick={this.showModal} />
+            // ) : (
+            //     <Cards imgs={this.state.datasites} onClick={this.showModal} />
+            //   )}
 
 
 
@@ -231,190 +267,3 @@ export default Sites;
 // {datasite.map(s => (<div>{s.location}</div>))}
 
 
-
-// כעושה אובר מחליף  את הרקע 
-// onMouseOver={e => (e.currentTarget.src ={sataf})}   <Container>
-        //     <CardDeck style={{ paddingBottom: '30px' }}>
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={bonim}
-        //         onClick={() => { this.setState({ selectedSiteIndex: 0 }); this.showModal(); this.fadeout(); }}
-        //         modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[0].name}</Card.Title>
-
-
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-
-        //       <Card.Img variant="top" src={sataf} onClick={() => { this.setState({ selectedSiteIndex: 1 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[1].name}</Card.Title>
-
-        //       </Card.Body>
-        //     </Card>
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={talshahar}
-        //         onClick={() => { this.setState({ selectedSiteIndex: 2 }); this.showModal(); }}
-        //         modalClosed={this.CancelHandler}
-        //       />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[2].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-        //   </CardDeck>
-
-
-        //   <CardDeck style={{ paddingBottom: '30px' }} >
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={artur3}
-        //         onClick={() => { this.setState({ selectedSiteIndex: 3 }); this.showModal(); }}
-        //         modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[3].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={motza} onClick={() => { this.setState({ selectedSiteIndex: 4 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[4].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={tayasim} onClick={() => { this.setState({ selectedSiteIndex: 5 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[5].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //   </CardDeck>
-
-        //   <CardDeck style={{ paddingBottom: '30px' }}>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={arugot} onClick={() => { this.setState({ selectedSiteIndex: 6 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[6].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={shaul} onClick={() => { this.setState({ selectedSiteIndex: 7 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[7].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={dan} onClick={() => { this.setState({ selectedSiteIndex: 8 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[8].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //   </CardDeck>
-        //   <CardDeck style={{ paddingBottom: '30px' }}>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={ain_dayag} onClick={() => { this.setState({ selectedSiteIndex: 9 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[9].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={helboni} onClick={() => { this.setState({ selectedSiteIndex: 10 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[10].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={hofhasharon} onClick={() => { this.setState({ selectedSiteIndex: 11 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[11].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //   </CardDeck>
-
-        //   <CardDeck style={{ paddingBottom: '30px' }}>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={saar} onClick={() => { this.setState({ selectedSiteIndex: 12 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[12].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={rosh_anikra} onClick={() => { this.setState({ selectedSiteIndex: 13 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[13].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={yardenit} onClick={() => { this.setState({ selectedSiteIndex: 14 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[14].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //   </CardDeck>
-        //   <CardDeck style={{ paddingBottom: '30px' }}>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={gilabon} onClick={() => { this.setState({ selectedSiteIndex: 15 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[15].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={ahula} onClick={() => { this.setState({ selectedSiteIndex: 16 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[16].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={ain_shoko} onClick={() => { this.setState({ selectedSiteIndex: 17 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[17].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //   </CardDeck>
-        //   <CardDeck style={{ paddingBottom: '30px' }} >
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={beeri} onClick={() => { this.setState({ selectedSiteIndex: 18 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[18].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={nahal_og} onClick={() => { this.setState({ selectedSiteIndex: 19 }); this.showModal(); }} modalClosed={this.CancelHandler} />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[19].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //     <Card style={{ width: '18rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer" }}>
-        //       <Card.Img variant="top" src={sidna_ali} onClick={() => { this.setState({ selectedSiteIndex: 20 }); this.showModal(); }} modalClosed={this.CancelHandler}  />
-        //       <Card.Body dir="rtl">
-        //         <Card.Title>{datasites[20].name}</Card.Title>
-        //       </Card.Body>
-        //     </Card>
-
-        //   </CardDeck>
-
-
-
-        // </Container>
