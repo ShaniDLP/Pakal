@@ -16,9 +16,11 @@ img{
 }
 img:hover {
   opacity: 1;
+  width: 300px;
+  transition: 0.3s;
 } 
 .sites{
-    margin-top:25% ;
+    
     text-align: center;
     padding-top: 10px;
  }
@@ -41,7 +43,7 @@ img:hover {
 
   @media (max-width: 1245px) {
     .sites{
-      margin-top:30% ;
+    
      
    }
 }

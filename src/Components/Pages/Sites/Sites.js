@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Sites.css'
-import { Row, Col, Container, CardDeck } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
+import { Row, Col, Container } from "react-bootstrap";
 import Cards from './Cards';
-import Filters from '../../UI/Filters/Filters';
+// import Filters from '../../UI/Filters/Filters';
 import ToolBar from '../../Navigation/ToolBar/Toolbar';
 import Modal from '../../Home/Modal/Modal';
 import { datasites } from './datasites';
-import dan from '../../../images/north/nahal_dan.jpg';
-import { withRouter } from 'react-router-dom'
-
-
+import { withRouter } from 'react-router-dom';
+import { clone } from 'clone';
 
 const filters = [
   { name: "נגיש לנכים", value: 1, status: false },
@@ -24,6 +21,7 @@ const areas = [
   { name: "center", status: false },
   { name: "south", status: false }
 ];
+
 
 const AREAS = ["north", "center", "south"];
 const newfilter = ["מקום שקט", "מסלול הליכה", "מתאים למשפחות", "נגיש לנכים"];
@@ -38,7 +36,8 @@ class Sites extends Component {
     selectedSiteIndex: 0,
     fadeout: false,
     areaIndex: 0,
-    filterArray: []
+    filterArray: [],
+
 
   }
 
@@ -114,14 +113,6 @@ class Sites extends Component {
       datasites: newImgs
     });
   }
-
-
-
-  fadeout = () => {
-    this.setState({ fadeout: true });
-
-  }
-
   CancelHandler = () => {
     this.setState({ show: false })
   }
@@ -144,34 +135,58 @@ class Sites extends Component {
     this.setState({ selectedArea: area });
   };
 
-  // filtersites = () => {
-  //   if (this.state.filterArray.length === 0)
-  //     return datasites;
-  //   else {
-  //     return datasites.filter(site => site.area === areaName).filter(site => this.state.filterArray.some(constraint =>
-  //       site.some(obj => obj.tag === constraint)))
-  //   }
+  filtersites = () => {
+    let areaName = this.props.match.params.areaName;
+    let filterDataSites = datasites;
+    /*if(this.state.filterArray.indexOf(tag) >= 0) {
+      console.log('remove');
+     } else {
+      console.log(this.state.filterArray);
+     }*/
 
-  // };
+    if (areaName) {
+      filterDataSites = filterDataSites.filter(site => site.area === areaName)
+    }
+    console.log('2נמאס לי');
+    if (this.state.filterArray.length !== 0) {
+      console.log('נמאס לי');
+      filterDataSites = filterDataSites.filter(site => site.tags && site.tags.some(tag => this.state.filterArray.indexOf(tag) >= 0));
+        console.log(filterDataSites);
+        // site.tags && site.tags.some(obj => obj === constraint)
+        // this.state.filterArray.some(constraint => 
+        //   site.tags && site.tags.indexOf("מתאים למשפחות") > 0
+        // )
+    }
+    return filterDataSites;
+  };
 
-  hendleCheck = (event) => {
-    let newFilteredTag = this.state.filterArray;
-    if (event.target.checked) {
-      newFilteredTag.push(event.target.tag);
-      this.setFilter(newFilteredTag);
-    }
-    else {
-      newFilteredTag.splice(newFilteredTag.indexOf(event.target.tag), 1);
-      this.setState(newFilteredTag);
-    }
-  }
-  isChacked = () => {
+  
+  isChecked = () => {
+    console.log('isChecked');
     return (this.state.filterArray.indexOf() >= 0)
   }
+  ///////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////
+
+  hendleCheck = (event) => {
+    console.log('hendleCheck');
+    console.log(event.target.checked);
+    let newFilteredTag = this.state.filterArray;
+    if (event.target.checked && newFilteredTag.indexOf(event.target.name) < 0) {
+      newFilteredTag.push(event.target.name);
+    }
+    else {
+      newFilteredTag.splice(newFilteredTag.indexOf(event.target.name), 1);
+    }
+    console.log(newFilteredTag);
+    this.setState(newFilteredTag);
+  }
+
+  ///////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////
   render() {
 
     const datasite = datasites;
-    let white = this.state.fadeout ? 'animation: fadeOut ease 8s' : 'opacity:1';
     const { filters, all } = this.state;
     // const areas = this.state;
     const areaName = this.props.match.params.areaName;
@@ -183,27 +198,35 @@ class Sites extends Component {
         <div className="sites">
           <h2> המלצות באיזור ה{this.state.selectedArea}</h2>
           <hr />
-          <Filters
-            onClickAll={this.setAll}
-            all={this.hendleCheck}
-            onClick={this.setFilter}
-            modalClosed={this.CancelHandler}
-            filters={filters}
-            checked={this.isChacked} />
+          <ul>
+            <li>
+            <label>
+              <input
+                id="quiteplace" name="מקום שקט"
+                type="checkbox"
+                
+                onChange={this.hendleCheck}
+              />
+              מקום שקט</label>
+            </li>
+            <li>
+            <label>
+              <input
+                id="families" name="מתאים למשפחות"
+                type="checkbox"
+                checked={this.isChecked}
+                onChange={this.hendleCheck}
+              />
+              משפחות</label>
+            </li>
+          </ul>
 
 
           <Container>
-          {(all) ? (
-            <Cards imgs={datasites && datasites.filter(site => site.area === areaName)} onClick={this.showModal} />
-          ) : (
-             <Cards imgs={ datasites.filter(site => site.area === areaName) && this.state.datasites} onClick={this.showModal} />
-            )}
-
+            <Cards imgs={this.filtersites()} onClick={this.showModal} />
           </Container>
-
-
-
         </div>
+
         <div>
           <Modal show={this.state.show} modalClosed={this.CancelHandler}>
             <Row>
@@ -234,9 +257,19 @@ class Sites extends Component {
 export default withRouter(Sites);
 
 
+// <Filters
+// onClickAll={this.setAll}
+// all={this.hendleCheck}
+// onClick={this.filtersites}
+// modalClosed={this.CancelHandler}
+// filters={filters}
+// checked={this.isChacked} />
 
-
-
+// {(all) ? (
+//   <Cards imgs={datasites && datasites.filter(site => site.area === areaName)} onClick={this.showModal} />
+// ) : (
+//    <Cards imgs={ datasites.filter(site => site.area === areaName) && this.state.datasites} onClick={this.showModal} />
+//   )}
 
 /* <Cards imgs={ this.state.datasites && datasites.filter(site => site.area === areaName)} onClick={this.showModal} /> */
 
