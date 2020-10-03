@@ -119,25 +119,33 @@ class Sites extends Component {
   showModal = (site) => {
     site.preventDefault();
     this.setState({ show: true })
-    console.log('show modal!');
-
-    let areaIndex = site.currentTarget.dataset.id;
+   let areaIndex = site.currentTarget.dataset.id;
     // let show = this.state.show;
     let selectedSiteIndex = this.state.selectedSiteIndex;
     this.setState({
       selectedSiteIndex: areaIndex
     })
-
-    console.log(selectedSiteIndex + 'selectedSiteIndex' + site.id + 'siteid');
+  console.log(selectedSiteIndex + 'selectedSiteIndex' + site.id + 'siteid');
   };
 
   setArea = (area) => {
-    this.setState({ selectedArea: area });
+    let selectesAreaName = "מרכז"
+    if (area === "north"){
+      selectesAreaName = "צפון"
+    }
+    else if(area === "south"){
+      selectesAreaName = "דרום"
+    }
+    else if(area === "center"){
+      selectesAreaName= "מרכז"
+    }
+    console.log(selectesAreaName +'selectesAreaName')
+    return selectesAreaName;
   };
-
   filtersites = () => {
     let areaName = this.props.match.params.areaName;
     let filterDataSites = datasites;
+
     /*if(this.state.filterArray.indexOf(tag) >= 0) {
       console.log('remove');
      } else {
@@ -147,26 +155,19 @@ class Sites extends Component {
     if (areaName) {
       filterDataSites = filterDataSites.filter(site => site.area === areaName)
     }
-    console.log('2נמאס לי');
-    if (this.state.filterArray.length !== 0) {
-      console.log('נמאס לי');
-      filterDataSites = filterDataSites.filter(site => site.tags && site.tags.some(tag => this.state.filterArray.indexOf(tag) >= 0));
+        if (this.state.filterArray.length !== 0) {
+            filterDataSites = filterDataSites.filter(site => site.tags && site.tags.some(tag => this.state.filterArray.indexOf(tag) >= 0));
         console.log(filterDataSites);
-        // site.tags && site.tags.some(obj => obj === constraint)
-        // this.state.filterArray.some(constraint => 
-        //   site.tags && site.tags.indexOf("מתאים למשפחות") > 0
-        // )
+
     }
+    
     return filterDataSites;
   };
 
-  
   isChecked = () => {
     console.log('isChecked');
     return (this.state.filterArray.indexOf() >= 0)
   }
-  ///////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////
 
   hendleCheck = (event) => {
     console.log('hendleCheck');
@@ -181,22 +182,19 @@ class Sites extends Component {
     console.log(newFilteredTag);
     this.setState(newFilteredTag);
   }
-
-  ///////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////
   render() {
 
     const datasite = datasites;
     const { filters, all } = this.state;
-    // const areas = this.state;
-    const areaName = this.props.match.params.areaName;
+    const selectedArea = this.props.match.params.areaName;
     const filtertype = newfilter;
 
     return (
       <div className="sitespage">
-        <ToolBar />
+        <ToolBar/>
         <div className="sites">
-          <h2> המלצות באיזור ה{this.state.selectedArea}</h2>
+        
+          <h2> המלצות באיזור ה{this.setArea(selectedArea)}</h2>
           <hr />
           <ul>
             <li>
@@ -218,6 +216,26 @@ class Sites extends Component {
                 onChange={this.hendleCheck}
               />
               משפחות</label>
+            </li>
+            <li>
+            <label>
+              <input
+                id="walking" name="מסלול הליכה"
+                type="checkbox"
+                
+                onChange={this.hendleCheck}
+              />
+              מסלול הליכה</label>
+            </li>
+            <li>
+            <label>
+              <input
+                id="quiteplace" name="נגיש לנכים"
+                type="checkbox"
+                
+                onChange={this.hendleCheck}
+              />
+              נגיש לנכים</label>
             </li>
           </ul>
 
