@@ -67,11 +67,15 @@
     transition: .3s;
     cursor: pointer;
   }
-  .sites label:hover{
-    opacity: 0.5;
-  }
+  
   
   .sites input:checked~label{
+    background: #6a7ce2;
+    padding: 5px 10px;
+    border-radius: 10px;
+    box-shadow: 5px 2px 15px #a8b4fc80;
+  }
+  .sites label input:checked{
     background: #6a7ce2;
     padding: 5px 10px;
     border-radius: 10px;

@@ -20,7 +20,7 @@ img:hover {
   transition: 0.3s;
 } 
 .sites{
-    
+  
     text-align: center;
     padding-top: 10px;
  }
@@ -42,10 +42,10 @@ img:hover {
       
 
   @media (max-width: 1245px) {
-    .sites{
+    /* .sites{
     
      
-   }
+   } */
 }
 
 

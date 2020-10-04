@@ -8,7 +8,7 @@ const Cards = ({ imgs, onClick, id }) =>
   <ul>
     {imgs.map(
       (img, i) =>
-        <li key={i} data-id={i} onClick={onClick}>
+        <li key={i} data-id={img.id} onClick={onClick}>
           <figure>
             <CardDeck >
               <Card style={{ width: '20rem', boxShadow: '0 0 0.7142857142857143rem #cccccc', cursor: "pointer", marginBottom: '20px' }}>
