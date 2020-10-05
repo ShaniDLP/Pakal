@@ -39,78 +39,6 @@ class Sites extends Component {
 
   }
 
-  // נקרא בלחיצה. 
-  setFilter = (e) => {
-    e.preventDefault();
-    const { filters, all } = this.state;
-    // const { areas } = this.state;
-    const { index } = e.currentTarget.dataset;
-    let areaIndex = parseInt(e.currentTarget.dataset.areakey);
-
-    if (filters[index]) {
-      filters[index].status = !filters[index].status;
-    }
-
-    console.log('areaKey: ' + areaIndex);
-
-    this.setState({
-      filters,
-      areaIndex
-    });
-
-
-    this.updateFilters();
-    this.updateImgs(areaIndex);
-    // this.updateArea();
-  }
-  //make all filtes checkbox false except 'All'
-  setAll = () => {
-    const { filters } = this.state;
-
-    filters.forEach(
-      filter => {
-        filter.status = false;
-      }
-    );
-
-    this.setState({
-      all: true,
-      filters
-    });
-  }
-  //if user selected the all filters it changes to 'all' button
-  updateFilters() {
-    const allFiltersTrue = filters.every(filter => filter.status === true);
-    const allFiltersFalse = filters.every(filter => filter.status === false);
-
-    if (allFiltersTrue || allFiltersFalse) {
-      this.setAll();
-    } else {
-      this.setState({
-        all: false
-      });
-    }
-  }
-
-  //for each element that the tag=filterName push to the array
-  updateImgs() {
-    const { filters, all, areas } = this.state;
-    let newImgs = [];
-    let a = 0;
-
-    datasites.forEach((img, imgKey) => {
-      filters.forEach((filter, filterKey) => {
-        if ((img.tag === filter.name) && (filter.status == true)) {
-          newImgs[a] = img;
-          a++;
-        }
-      })
-    });
-    //update the datasites with the new array     
-    this.setState({
-      datasites: newImgs
-    });
-  }
   CancelHandler = () => {
     this.setState({ show: false })
   }
@@ -147,22 +75,17 @@ class Sites extends Component {
     }
     
     if(this.state.lastArea != areaName) {
-      console.log(this.state.lastArea +' before');
       this.setState({lastArea: areaName, filterArray: []});
-      console.log(this.state.lastArea + ' after');
+    
     }
     if (this.state.filterArray.length !== 0) {
       filterDataSites = filterDataSites.filter(site => site.tags && site.tags.some(tag => this.state.filterArray.indexOf(tag) >= 0));
-      // console.log(filterDataSites);
     }
-
-
     return filterDataSites;
   };
 
   isChecked = (name) => {
     let res = this.state.filterArray.indexOf(name) >= 0;
-    console.log('isChecked - ' + name +': ' + res);
     return res;
   }
 

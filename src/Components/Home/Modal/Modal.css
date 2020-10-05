@@ -3,11 +3,12 @@
     z-index: 500;
     background-color: white;
     width: 60%;
-    height: 50%;
+    /* height: 50%; */
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 1px 1px 1px black;
     padding: 16px;
+    padding-bottom: 5%;
     left: 20%;
     right:20%;
     top: 30%;
@@ -15,12 +16,18 @@
     transition: all 0.3s ease-out;
     text-align: right;
     color: black;
-    display: block;
+     /* display: block;  */
+   display: flex;
+    align-items: flex-start; 
+     overflow-y: auto;
+     overflow-x: hidden; 
 }
 
-/* @media (min-width: 600px) {
+@media (min-width: 600px) {
     .Modal {
-       
-        /* left: calc(50% - 250px); */
-    /* }
-} */ 
+        display: block; 
+        /* height: 70%; */
+    }
+} 
+
+/* left: calc(50% - 250px); */

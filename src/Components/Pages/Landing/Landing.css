@@ -21,10 +21,12 @@ z-index: -1;
     height: calc(100vh - 18px);
 } */
 .bodyy{
+    
     position: relative;
     top:0 !important;
 }
 .bodyy::after{
+    
     content: "";
     opacity: 0.8;
     background: rgb(26, 31, 41) url("./background.jpg") no-repeat center center fixed;
@@ -63,9 +65,10 @@ z-index: -1;
     top: 27%;
     left: 50%;
     z-index: 1;
+    
 }
 
-    #containerr h3 {
+#containerr h3 {
         font-family: 'Varela Round' !important;
         font-size:90px;
        text-align: left;
@@ -80,13 +83,12 @@ z-index: -1;
         left:2%;
 
     }
-
-    #containerr ul {
+ #containerr ul {
         bottom: 0;
-        position: absolute;
+        
         right: 0;
     }
-    #containerr p{
+#containerr p{
         text-align: right;
         color: ghostwhite;
         position: absolute;
@@ -94,22 +96,61 @@ z-index: -1;
         top: 65%;
         font-size:24px;
         text-shadow:2px 2px gray;
-    }
-    #containerr button {
-        position: absolute;
-       top:80%;
+}
+   
+.startbutton {
+       position: absolute;
+       top:80% ;
        left: 18%
-    }
+    } 
 
 nav > ul > li {
     list-style: none;
 }
+#selectarea{
+    height: 150px;
+    width: 70%;
+    margin: auto;
+    border-radius: 6px;
+    opacity: 0.9;
+}
+.areabutton{
+    background: #91a0e8e0;
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 40px;
+    border-radius: 10px;
+    transition: .3s;
+    cursor: pointer;
+    font-size: 20px;
+}
+.areabutton:hover{
+    background: #7b84ad;
+
+}
+#selectarea ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+#selectarea li{
+  margin: 5px 5px;
+  padding: 14px 16px;
+
+}
+#selectarea h2{
+    font-size: 54px;
+    opacity: 1;
+    color: white;
+}
+
 @media screen and (max-width: 860px) {
-    #containerr h3 {
+#containerr h3 {
       font-size: 40px;
     }
-  
-
+ 
   .box{
       display: flex;
   }
@@ -129,7 +170,7 @@ nav > ul > li {
       right: 25%;
       
   }
-  #containerr button {
+  .startbutton{
     margin-right: auto;
     margin-left: auto;
     align-items: center;
