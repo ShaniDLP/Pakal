@@ -1,15 +1,15 @@
-import bonim from '../../../images/bonim.jpg';
-import sataf from '../../../images/sataf.jpg';
-import talshahar from '../../../images/talshahar.jpg';
-import tayasim from '../../../images/tayasim.jpg';
-import motza from '../../../images/motza.jpg';
-import artur from '../../../images/artur3.jpg';
+import bonim from '../../../images/center/bonim.jpg';
+import sataf from '../../../images/center/sataf.jpg';
+import talshahar from '../../../images/center/talshahar.jpg';
+import tayasim from '../../../images/center/tayasim.jpg';
+import motza from '../../../images/center/motza.jpg';
+import artur from '../../../images/center/artur3.jpg';
 import arugot from '../../../images/north/mitzpe_shaul.jpg';
 import shaul from '../../../images/south/nahal_arugot2.jpg';
 import dan from '../../../images/north/nahal_dan.jpg';
 import ain_dayag from '../../../images/north/ain_dayag.jpg';
 import helboni from '../../../images/north/brehat_helboni.jpg';
-import hofhasharon from '../../../images/hof_hasharon.jpg';
+import hofhasharon from '../../../images/center/hof_hasharon.jpg';
 import saar from '../../../images/north/saar.jpg';
 import rosh_anikra from '../../../images/north/rosh_hanikra.jpg';
 import yardenit from '../../../images/north/yardenit44.jpg';
@@ -18,7 +18,7 @@ import ahula from '../../../images/north/agamon_ahula.jpg';
 import ain_shoko from '../../../images/north/ain_shoko.jpg';
 import beeri from '../../../images/south/beeri.jpg';
 import nahal_og from '../../../images/south/nahal_og.jpg';
-import sidna_ali from '../../../images/sidna_ali.jpg';
+import sidna_ali from '../../../images/center/sidna_ali.jpg';
 
 
 export const datasites = [

@@ -51,7 +51,7 @@ z-index: -1;
 }
 
 #containerr {
-    background:  url('../../../images/background.jpg') center center no-repeat;
+    background:  url('../../../images/center/background.jpg') center center no-repeat;
     background-size: 100%;
     width: 70%;
     height: 80%;

@@ -5,7 +5,6 @@ import Landing from './Components/Pages/Landing/Landing';
 import Sites from './Components/Pages/Sites/Sites';
 import Sendform from './Components/Pages/Sendform/Sendform';
 import Info from './Components/Pages/Info/Info';
-import Sitesw from './Components/Pages/Sites/sitesw';
 import Weather from './Containers/practiceserver';
 
 import './App.css';
