@@ -115,8 +115,8 @@ nav > ul > li {
     opacity: 0.9;
 }
 .areabutton{
-    background: #91a0e8e0;
-    color: #fff;
+    background: #fcfcffe0;
+    color: #777;
     font-weight: 700;
     padding: 10px 40px;
     border-radius: 10px;
@@ -126,7 +126,7 @@ nav > ul > li {
 }
 .areabutton:hover{
     background: #7b84ad;
-
+    color: #fcfcffe0;
 }
 #selectarea ul{
     display: flex;

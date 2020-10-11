@@ -8,7 +8,7 @@ import ToolBar from '../../Navigation/ToolBar/Toolbar';
 import Modal from '../../Home/Modal/Modal';
 import { datasites } from './datasites';
 import { withRouter } from 'react-router-dom';
-import { clone } from 'clone';
+
 
 const filters = [
   { name: "נגיש לנכים", value: 1, status: false },
@@ -45,7 +45,7 @@ class Sites extends Component {
   showModal = (site) => {
     site.preventDefault();
     this.setState({ show: true })
-    let areaIndex = site.currentTarget.dataset.id;
+    let areaIndex = site.currentTarget.dataset.id -1;
     console.log(site.currentTarget);
     console.log(datasites);
     this.setState({
@@ -130,7 +130,7 @@ class Sites extends Component {
               checked={this.isChecked("מתאים למשפחות")}
               onChange={this.hendleCheck}
               />
-              <label for="families">משפחות</label>
+              <label for="families">מתאים למשפחות</label>
               </li>
               <li>
               <input

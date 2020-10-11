@@ -3,7 +3,7 @@ import './Landing.css';
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigation from '../../Navigation/ToolBar/Navigation';
-import SelectArea from './selectArae';
+import SelectArea from './selectArea';
 import {
     BrowserRouter as Router,
     Switch,

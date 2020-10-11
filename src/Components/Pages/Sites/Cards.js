@@ -2,6 +2,7 @@ import React from 'react';
 import { datasites } from './datasites';
 import { Row, Col, Container, CardGroup, CardDeck } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
+import './Sites.css';
 
 
 const Cards = ({ imgs, onClick, id }) =>
