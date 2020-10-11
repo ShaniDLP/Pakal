@@ -38,7 +38,7 @@ class Landing extends Component {
                             <p>מצא את המקום המושלם עבורך <br />
                     לשבת, להרגע ולהנות מהנוף</p>
 
-                            <button type="button" class="btn btn-light startbutton" onClick={() => this.startbutton()} >התחל</button>
+                            <button type="button" className="btn btn-light startbutton" onClick={() => this.startbutton()} >התחל</button>
                         </div>
                          <SelectArea show={this.state.show} />
                     </div>

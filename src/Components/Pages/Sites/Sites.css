@@ -13,6 +13,7 @@
 
 img{
   opacity: 0.9;
+  cursor: pointer;
 }
 img:hover {
   opacity: 1;

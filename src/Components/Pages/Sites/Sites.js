@@ -74,7 +74,7 @@ class Sites extends Component {
       filterDataSites = filterDataSites.filter(site => site.area === areaName)
     }
     
-    if(this.state.lastArea != areaName) {
+    if(this.state.lastArea !== areaName) {
       this.setState({lastArea: areaName, filterArray: []});
     
     }
@@ -102,7 +102,6 @@ class Sites extends Component {
   }
   render() {
 
-    const datasite = datasites;
     const selectedArea = this.props.match.params.areaName;
 
 
@@ -164,7 +163,7 @@ class Sites extends Component {
               <Col>
                 <h5>{datasites[this.state.selectedSiteIndex].name} </h5>
                 <img style={{ width: '15rem', paddingTop: "6px", paddingRight: "20px", float: "left" }}
-                  src={datasites[this.state.selectedSiteIndex].src} />
+                  src={datasites[this.state.selectedSiteIndex].src}  />
 
                 <p>{datasites[this.state.selectedSiteIndex].description}</p>
                 <p>איך מגיעים:{datasites[this.state.selectedSiteIndex].location}</p>
@@ -186,47 +185,5 @@ class Sites extends Component {
 
 export default withRouter(Sites);
 
-
-// <Filters
-// onClickAll={this.setAll}
-// all={this.hendleCheck}
-// onClick={this.filtersites}
-// modalClosed={this.CancelHandler}
-// filters={filters}
-// checked={this.isChacked} />
-
-// {(all) ? (
-//   <Cards imgs={datasites && datasites.filter(site => site.area === areaName)} onClick={this.showModal} />
-// ) : (
-//    <Cards imgs={ datasites.filter(site => site.area === areaName) && this.state.datasites} onClick={this.showModal} />
-//   )}
-
-/* <Cards imgs={ this.state.datasites && datasites.filter(site => site.area === areaName)} onClick={this.showModal} /> */
-
-
-// .filter(site => site.tag.some(obj => filtertype.indexOf(obj) >= 0) || filtertype.length = 0)}
-// onClick={this.showModal
-
-
-     // {(all) ? (
-            //   <Cards imgs={datasites} onClick={this.showModal} />
-            // ) : (
-            //     <Cards imgs={this.state.datasites} onClick={this.showModal} />
-            //   )}
-
-
-
-// <datasite 
-// // name = {datasite.name}
-// // location = {datasite.location}
-// // />
-
-// <p> {this.state.site1.description}</p>
-// <p>איך מגיעים: {this.state.site1.location}</p>
-
-// {Object.keys(datasite).map((key,i) => (<li key={id}><span> key{key}</span></li>))
-//             }
-
-// {datasite.map(s => (<div>{s.location}</div>))}
 
 
