@@ -88,7 +88,7 @@ class Sites extends Component {
     return filterDataSites;
   };
 
-  //return boolean of tag button (css)
+  //return boolean of tag button (css).
   isChecked = (name) => {
     let res = this.state.filterArray.indexOf(name) >= 0;
     return res;
