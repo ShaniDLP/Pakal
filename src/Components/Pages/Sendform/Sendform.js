@@ -5,12 +5,6 @@ import './Sendform.css';
 // import { FirebaseDatabaseMutation } from "@react-firebase/database";
 import axios from '../../../Containers/axios-sites';
 import Navigation from '../../Navigation/ToolBar/Navigation';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
 import Thankyou from './ThankYou';
 
 
@@ -19,17 +13,16 @@ const formValid = ({ isError, ...rest }) => {
     let isValid = true;
 
     Object.values(isError).forEach(val => {
-        if (val.length > 0){ 
-        
+        if (val.length > 0) {
+
             isValid = false
         }
     });
 
     Object.values(rest).forEach(val => {
         if (val == "") {
-            console.log('זה ריק');
             isValid = false
-        } 
+        }
     });
 
     return isValid;
@@ -70,13 +63,11 @@ class Sendform extends Component {
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.ContinueHandler = this.ContinueHandler.bind(this);
     }
-    // loading:true,
-    // purchasing:true
 
 
 
 
-    // מעביר את המידע לדאטה בייס בצורה דינמית
+    // write data from form to firebase
     componentDidMount() {
         axios.get('https://pakal-4a6e5.firebaseio.com/sites.json')
             .then(response => {
@@ -88,9 +79,8 @@ class Sendform extends Component {
             });
     }
 
-    //לוגיקה של מה שקורה שלחוץ על כפתור contunie בהזמנה 
+    //user press on "send" button 
     ContinueHandler(event) {
-
 
         axios.post('/sites.json', {
             name: this.state.name,
@@ -111,48 +101,36 @@ class Sendform extends Component {
         event.preventDefault();
         console.log('the state updated with onChangeHandler ' + this.state)
 
-        this.thankyoubutton(event);
+        this.thankyoumessage(event);
 
     }
 
     onChangeHandler(event) {
         this.setState({ [event.target.name]: event.target.value });
         console.log('the state updated withonChangeHandler ' + this.state);
-        
+
 
     }
-
-    thankyoubutton(e) {
-        e.preventDefault();
+    //check validation and display 'Thank you' message to user
+    thankyoumessage(event) {
+        event.preventDefault();
         if (formValid(this.state)) {
             console.log(this.state)
             console.log("Form is valid!");
-            this.setState({ showmessage: true })  
+            this.setState({ showmessage: true })
         } else {
             console.log("Form is invalid!");
             alert('יש למלא את כל השדות כראוי');
         }
 
-          };
 
 
+    };
 
 
-
-    // onSubmit = e => {
-    //     e.preventDefault();
-    //     if (formValid(this.state)) {
-    //         console.log(this.state)
-    //         console.log("Form is valid!");  
-    //     } else {
-    //         console.log("Form is invalid!");
-    //     }
-    // };
-
-
-    formValChange = (e) => {
-        e.preventDefault();
-        const { name, value } = e.target;
+    formValChange = (validationEvent) => {
+        validationEvent.preventDefault();
+        const { name, value } = validationEvent.target;
         let isError = { ...this.state.isError };
 
         switch (name) {
@@ -186,7 +164,7 @@ class Sendform extends Component {
             isError,
             [name]: value
         })
-        this.onChangeHandler(e);
+        this.onChangeHandler(validationEvent);
     };
 
     render() {
@@ -201,14 +179,10 @@ class Sendform extends Component {
 
                 <div className="form" dir="rtl">
                     <h2>שלח לנו המלצה </h2>
-
                     <hr />
-                    <p> מכיר מקום מיוחד שאף אחד עוד לא שמע עליו? שתף אותנו
-            </p>
-                    <div className="containerimage">
+                    <p> מכיר מקום מיוחד שאף אחד עוד לא שמע עליו? שתף אותנו</p>
+                    <div>
                         <Container>
-
-
                             <br />
                             <Form onSubmit={this.onSubmit} noValidate >
                                 <div className="formdetails"
@@ -221,7 +195,7 @@ class Sendform extends Component {
                                             </Form.Label>
                                             <Col sm={10} xs={12}>
                                                 <Form.Control placeholder="שם הממליץ" dir="rtl"
-                                                    value={name} onChange={(e) => this.formValChange(e)}
+                                                    value={name} onChange={(validationEvent) => this.formValChange(validationEvent)}
                                                     name="name"
                                                     className={isError.name.length > 0 ? "is-invalid form-control" : "form-control"}
                                                 />
@@ -229,7 +203,6 @@ class Sendform extends Component {
                                                     <span className="invalid-feedback">{isError.name}</span>
                                                 )}
                                             </Col>
-
                                         </Form.Group>
 
                                         <Form.Group as={Row} controlId="email" >
@@ -237,7 +210,7 @@ class Sendform extends Component {
                                             </Form.Label>
                                             <Col sm={10} xs={12}>
                                                 <Form.Control type="email" placeholder="דואר אלקטרוני" dir="rtl"
-                                                    onChange={(e) => this.formValChange(e)} name="email" value={email}
+                                                    onChange={(validationEvent) => this.formValChange(validationEvent)} name="email" value={email}
                                                     className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"} />
                                                 {isError.email.length > 0 && (
                                                     <span className="invalid-feedback">{isError.email}</span>
@@ -251,7 +224,7 @@ class Sendform extends Component {
                                             </Form.Label>
                                             <Col sm={10} xs={12}>
                                                 <Form.Control placeholder="שם האתר" dir="rtl"
-                                                    onChange={(e) => this.formValChange(e)} name="sitename" value={sitename}
+                                                    onChange={(validationEvent) => this.formValChange(validationEvent)} name="sitename" value={sitename}
                                                     className={isError.sitename.length > 0 ? "is-invalid form-control" : "form-control"} />
                                             </Col>
                                         </Form.Group>
@@ -261,7 +234,7 @@ class Sendform extends Component {
                                             </Form.Label>
                                             <Col sm={10} xs={12}>
                                                 <Form.Control placeholder="תאר את המקום" dir="rtl"
-                                                    onChange={(e) => this.formValChange(e)} name="description" value={description}
+                                                    onChange={(validationEvent) => this.formValChange(validationEvent)} name="description" value={description}
                                                     className={isError.description.length > 0 ? "is-invalid form-control" : "form-control"} />
                                             </Col>
                                         </Form.Group>
@@ -273,7 +246,7 @@ class Sendform extends Component {
                                             </Form.Label>
                                             <Col sm={10} xs={12}>
                                                 <Form.Control placeholder="איך מגיעים?" dir="rtl"
-                                                    onChange={(e) => this.formValChange(e)} name="location" value={location}
+                                                    onChange={(validationEvent) => this.formValChange(validationEvent)} name="location" value={location}
                                                     className={isError.location.length > 0 ? "is-invalid form-control" : "form-control"} />
                                             </Col>
                                         </Form.Group>
@@ -295,7 +268,7 @@ class Sendform extends Component {
 
 
                                     {['checkbox'].map((type) => (
-                                        <div key={`inline-${type}`} className="mb-3 checkbox allformtags">
+                                        <div key={`inline-${type}`} className=" checkbox allformtags mb-3" key={`default-${type}`}>
                                             <Form.Check inline label="מסלול הליכה" type={type} id={`inline-${type}-1`} className="formtags" />
                                             <Form.Check inline label="גישה לנכים/עגלות" type={type} id={`inline-${type}-2`} className="formtags" />
                                             <Form.Check inline label="מקום שקט" type={type} id={`inline-${type}-2`} className="formtags" />
@@ -321,14 +294,9 @@ class Sendform extends Component {
                                 </div>
                                 <Thankyou showmessage={this.state.showmessage} />
                             </Form>
-
-
                         </Container>
                     </div>
-
                 </div>
-
-
             </div>
 
         )
@@ -337,41 +305,5 @@ class Sendform extends Component {
 
 export default Sendform;
 
-//   <Form.Group id="formGridCheckbox">
-// <Form.Check inline type="checkbox" label="מילה" />
-// </Form.Group>
-// <Form.Group id="formGridCheckbox">
-//     <Form.Check inline type="checkbox" label="Check me out" />
-// </Form.Group>
-// <Form.Group id="formGridCheckbox">
-//     <Form.Check  inline type="checkbox" label="Check me out" />
-// </Form.Group>
-// <Form.Group id="formGridCheckbox">
-//     <Form.Check  inline type="checkbox" label="Check me out" />
-// </Form.Group>
-
-
-// componentDidMount() {
-//     axios.get('https://pakal-4a6e5.firebaseio.com/sites.json')
-//             .then(response =>{
-//                 this.setState({ingredients: response.data});
-//             } )
-//             .catch(error=>{
-//             this.setState({error: true})
-
-//             });
-
-//      }
-
-
-// sendbuttonhandler=()=> {
-
-//    axios.post('/orders.json', order)
-//         .then(response=> {
-//         this.setState({loading: false, purchasing:false});
-//         }) 
-//         .catch(error => {
-//         this.setState({loading: false, purchasing:false});  
-// }
 
 
