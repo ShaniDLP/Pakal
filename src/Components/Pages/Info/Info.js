@@ -5,7 +5,6 @@ import './Info.css';
 import ToolBar from '../../Navigation/ToolBar/Toolbar';
 // import { FirebaseDatabaseMutation } from "@react-firebase/database";
 
-
 const info = (props) => (
    
     <div>  

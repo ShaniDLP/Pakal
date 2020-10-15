@@ -53,6 +53,7 @@ class Sites extends Component {
     })
   };
 
+// Change the name from English(from the array) to Hebrew on UI
   setArea = (area) => {
     let selectesAreaName = "מרכז";
     if (area === "north") {
@@ -66,10 +67,12 @@ class Sites extends Component {
     }
     return selectesAreaName;
   };
+
+  //return the filtered sites from datasites to Cards
   filtersites = () => {
     let areaName = this.props.match.params.areaName;
     let filterDataSites = datasites;
-
+    //filter the areas
     if (areaName) {
       filterDataSites = filterDataSites.filter(site => site.area === areaName)
     }
@@ -78,17 +81,19 @@ class Sites extends Component {
       this.setState({lastArea: areaName, filterArray: []});
     
     }
+    //filter the tags
     if (this.state.filterArray.length !== 0) {
       filterDataSites = filterDataSites.filter(site => site.tags && site.tags.some(tag => this.state.filterArray.indexOf(tag) >= 0));
     }
     return filterDataSites;
   };
 
+  //return boolean of tag button (css)
   isChecked = (name) => {
     let res = this.state.filterArray.indexOf(name) >= 0;
     return res;
   }
-
+// when user click on tags buttons update filterArray.
   hendleCheck = (event) => {
     let newFilteredTag = this.state.filterArray;
     if (event.target.checked && newFilteredTag.indexOf(event.target.name) < 0) {
@@ -101,10 +106,8 @@ class Sites extends Component {
     this.setState(newFilteredTag);
   }
   render() {
-
     const selectedArea = this.props.match.params.areaName;
-
-
+    
     return (
       <div className="sitespage">
         <ToolBar />

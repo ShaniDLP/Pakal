@@ -4,12 +4,7 @@ import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigation from '../../Navigation/ToolBar/Navigation';
 import SelectArea from './selectArea';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
+
 
 
 
@@ -19,7 +14,7 @@ class Landing extends Component {
     }
     startbutton() {
         this.setState({ show: true })
-        console.log('hii');
+
     };
     render() {
         return (
@@ -28,7 +23,7 @@ class Landing extends Component {
                 </div>
                 <Container>
                     <div id="containerr">
-                        
+
                         <div
                             style={{
                                 display: this.state.show ? 'none' : 'block'
@@ -40,7 +35,7 @@ class Landing extends Component {
 
                             <button type="button" className="btn btn-light startbutton" onClick={() => this.startbutton()} >התחל</button>
                         </div>
-                         <SelectArea show={this.state.show} />
+                        <SelectArea show={this.state.show} />
                     </div>
                 </Container>
             </div>
