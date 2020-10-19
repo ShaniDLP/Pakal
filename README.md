@@ -1,7 +1,7 @@
 # Pakal
 
 
-A Website that displays wonderful places to sit in nature with friends and drink coffee.
+A Website that displays wonderful places to rest in nature with friends and drink coffee.
 
 The site was built as part of a Final project course of She-codes.
 
