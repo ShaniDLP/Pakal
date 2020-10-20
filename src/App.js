@@ -18,22 +18,24 @@ import {
 class App extends Component {
   render() {
     return (
+
       <BrowserRouter>
-        <Router>
-          <Route path="/" exact >
-            <Landing />
-          </Route>
-          <Route path="/area=:areaName" >
-            <Sites />
-          </Route>
-          <Route path="/sendform">
-            <Sendform />
-          </Route>
-          <Route path="/info">
-            <Info />
-          </Route>
-        </Router>
-      </BrowserRouter>
+<Router>
+  <Route path="/" exact >
+    <Landing />
+  </Route>
+  <Route path="/area=:areaName" >
+    <Sites />
+  </Route>
+  <Route path="/sendform">
+    <Sendform />
+  </Route>
+  <Route path="/info">
+    <Info />
+  </Route>
+</Router>
+</BrowserRouter>
+
     );
   }
 }

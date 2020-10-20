@@ -8,6 +8,8 @@ import ToolBar from '../../Navigation/ToolBar/Toolbar';
 import Modal from '../../Home/Modal/Modal';
 import { datasites } from './datasites';
 import { withRouter } from 'react-router-dom';
+import axios from "axios";
+import SitesData from './SitesData';
 
 
 const filters = [
@@ -27,6 +29,7 @@ const areas = [
 class Sites extends Component {
   state = {
     datasites,
+    sitesDB:[],
     areas,
     filters,
     all: true,
@@ -46,12 +49,33 @@ class Sites extends Component {
     site.preventDefault();
     this.setState({ show: true })
     let areaIndex = site.currentTarget.dataset.id -1;
-    console.log(site.currentTarget);
-    console.log(datasites);
+;
     this.setState({
       selectedSiteIndex: areaIndex
     })
+    this.importDataToModal();
   };
+  //import the data from MongoDB to the modal using the server
+  importDataToModal = () => {
+    axios.get("/getinfo").then(response => {
+ 
+        let datasite = {}
+        if (typeof response.data === "object") {
+            datasite = response.data;
+        }
+        else if (typeof response.data === "string") {
+            datasite = JSON.parse(response.data);
+        }
+        else {
+            datasite = {};
+            
+        }
+        console.log(typeof datasite)
+        this.setState({
+            sitesDB: datasite
+        })
+    });
+}
 
   setArea = (area) => {
     let selectesAreaName = "מרכז";
@@ -159,16 +183,10 @@ class Sites extends Component {
 
         <div>
           <Modal show={this.state.show} modalClosed={this.CancelHandler}>
-            <Row>
-              <Col>
-                <h5>{datasites[this.state.selectedSiteIndex].name} </h5>
-                <img style={{ width: '15rem', paddingTop: "6px", paddingRight: "20px", float: "left" }}
-                  src={datasites[this.state.selectedSiteIndex].src}  />
-
-                <p>{datasites[this.state.selectedSiteIndex].description}</p>
-                <p>איך מגיעים:{datasites[this.state.selectedSiteIndex].location}</p>
-              </Col>
-            </Row>
+           <SitesData selectedSiteIndex={this.state.selectedSiteIndex}
+                      sitesDB={this.state.sitesDB}
+            />
+           
           </Modal>
         </div>
       </div>
@@ -185,5 +203,18 @@ class Sites extends Component {
 
 export default withRouter(Sites);
 
+// {
+//   Object.keys(this.state.sitesDB).map( (keyName, keyIndex) => {
+     
+//           console.log(this.state.site[keyName])
+//           return (
+//                 <li key={keyName}>
+//                   {keyName}
+//               </li>
+//           )
+//       }
+
+//   })
+// }
 
 

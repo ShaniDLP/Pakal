@@ -14,7 +14,7 @@ import {
 import Thankyou from './ThankYou';
 
 
-
+//check if the requires fileds are empty
 const formValid = ({ isError, ...rest }) => {
     let isValid = true;
 
@@ -70,8 +70,7 @@ class Sendform extends Component {
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.ContinueHandler = this.ContinueHandler.bind(this);
     }
-    // loading:true,
-    // purchasing:true
+
 
 
 
@@ -87,7 +86,7 @@ class Sendform extends Component {
 
             });
     }
-
+// When user click on "send" - send the data o firebase 
     //לוגיקה של מה שקורה שלחוץ על כפתור contunie בהזמנה 
     ContinueHandler(event) {
 
@@ -118,10 +117,10 @@ class Sendform extends Component {
     onChangeHandler(event) {
         this.setState({ [event.target.name]: event.target.value });
         console.log('the state updated withonChangeHandler ' + this.state);
-        
+      
 
     }
-
+// when user click on "send" check if the form is valid and display "thank you" massage
     thankyoubutton(e) {
         e.preventDefault();
         if (formValid(this.state)) {
@@ -135,21 +134,7 @@ class Sendform extends Component {
 
           };
 
-
-
-
-
-    // onSubmit = e => {
-    //     e.preventDefault();
-    //     if (formValid(this.state)) {
-    //         console.log(this.state)
-    //         console.log("Form is valid!");  
-    //     } else {
-    //         console.log("Form is invalid!");
-    //     }
-    // };
-
-
+// check validation for each field and update the state if error was found 
     formValChange = (e) => {
         e.preventDefault();
         const { name, value } = e.target;
