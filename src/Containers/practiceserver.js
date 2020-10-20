@@ -1,40 +1,78 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import axios from "axios";
 
-export default class Weather extends Component{
-    constructor(){
+
+
+const api = axios.create({
+    baseURL: 'http://localhost:5000/api',
+})
+
+export default class Weather extends Component {
+    constructor() {
         super();
-        this.state={
-            weather: "not yet",
-            selectedSiteIndex:0
+        this.state = {
+            site: "",
+            selectedSiteIndex: 0,
+            mongosites: []
         };
 
-    }  
-    handleButtonClick=()=> {
-        axios.get("/getweather").then(response =>{
-    this.setState({
-        weather:response.data.temp_c
-    })
+
+    }
+    // componentDidMount() {
+    //     this.callApi()
+    //       .then(res => this.setState({ response: res.express }))
+    //       .catch(err => console.log(err));
+    //   } 
+
+    // componentDidMount = ()=>{
+    //     this.getDataFromMongo();
+    // }
+
+    handleButtonClick = () => {
+        axios.get("/getweather").then(response => {
+            this.setState({
+                weather: response.data.temp_c
+            })
 
         });
     }
-
-
-    handleButtonClickdata=()=> {
-        axios.get("/getjson").then(response =>{
-    this.setState({
-        weather:response.data
-      })
-
+    getDataFromMongo = () => {
+        axios.get('/api').then((response) => {
+            const data = response.data;
+            console.log('data has been received!');
+            this.setState({ mongosites: data })
+        }).catch(() => {
+            alert('Error retreving data')
         });
     }
-   render(){
 
-return (
-    <div>
-    <button onClick={() =>{this.setState({selectedSiteIndex:0});this.handleButtonClickdata();}}> Get Data</button>
-    <h4> sites: {this.state.weather}</h4>
-    </div>
-);
- }
+    handleButtonClickdata = () => {
+        axios.get("/getinfo").then(response => {
+            let itay = [];
+            response.data.forEach(element => {
+                itay.push(element)
+
+            });
+            console.log(itay);
+            console.log(typeof itay);
+            console.log( Object.values(itay));
+
+            // console.log(typeof response.data);
+            // console.log(response.data[1]);
+            // let datasite = JSON.stringify(response.data[1].tags);
+            let datasite = JSON.stringify(response.data[1]);
+            this.setState({
+                site: datasite
+            })
+        });
+    }
+    render() {
+
+        return (
+            <div>
+                <button onClick={this.handleButtonClickdata}> Get Data</button>
+                <h4> site: {this.state.site}</h4>
+            </div>
+        );
+    }
 }
