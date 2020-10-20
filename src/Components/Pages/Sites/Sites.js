@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Sites.css'
-import { Row, Col, Container } from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import Cards from './Cards';
 // import Filters from '../../UI/Filters/Filters';
 import ToolBar from '../../Navigation/ToolBar/Toolbar';
@@ -41,10 +41,11 @@ class Sites extends Component {
     lastArea: ""
 
   }
-
+//close modal on click
   CancelHandler = () => {
     this.setState({ show: false })
   }
+  //open modal on click on site
   showModal = (site) => {
     site.preventDefault();
     this.setState({ show: true })
@@ -55,7 +56,8 @@ class Sites extends Component {
     })
     this.importDataToModal();
   };
-  //import the data from MongoDB to the modal using the server
+
+  //import the data from MongoDB to the modal using the server(called in 'show modal' function)
   importDataToModal = () => {
     axios.get("/getinfo").then(response => {
  
@@ -76,7 +78,7 @@ class Sites extends Component {
         })
     });
 }
-
+//Translate the area from the array to hebrew
   setArea = (area) => {
     let selectesAreaName = "מרכז";
     if (area === "north") {
@@ -90,6 +92,8 @@ class Sites extends Component {
     }
     return selectesAreaName;
   };
+
+  //filter the sites by area and than by tags.
   filtersites = () => {
     let areaName = this.props.match.params.areaName;
     let filterDataSites = datasites;
@@ -108,11 +112,12 @@ class Sites extends Component {
     return filterDataSites;
   };
 
+  //return boolean of the tag button- for css color. 
   isChecked = (name) => {
     let res = this.state.filterArray.indexOf(name) >= 0;
     return res;
   }
-
+  //when user click on tag botton -update filterArray that in state. 
   hendleCheck = (event) => {
     let newFilteredTag = this.state.filterArray;
     if (event.target.checked && newFilteredTag.indexOf(event.target.name) < 0) {
@@ -203,18 +208,5 @@ class Sites extends Component {
 
 export default withRouter(Sites);
 
-// {
-//   Object.keys(this.state.sitesDB).map( (keyName, keyIndex) => {
-     
-//           console.log(this.state.site[keyName])
-//           return (
-//                 <li key={keyName}>
-//                   {keyName}
-//               </li>
-//           )
-//       }
-
-//   })
-// }
 
 
