@@ -54,7 +54,6 @@ class Sites extends Component {
     this.setState({
       selectedSiteIndex: areaIndex
     })
-    this.importDataToModal();
   };
 
   //import the data from MongoDB to the modal using the server(called in 'show modal' function)
@@ -182,7 +181,7 @@ class Sites extends Component {
 
 
           <Container>
-            <Cards imgs={this.filtersites()} onClick={this.showModal} />
+            <Cards imgs={this.filtersites()} onClick={(e) => {this.showModal(e);this.importDataToModal();}} />
           </Container>
         </div>
 
