@@ -108,7 +108,12 @@
     background: #8ddddde0;  
 }
 .area{
-   padding-right:20px;
+    display: block;
+    margin-right: 30px;
+}
+.area select {
+   
+    width: 187px;
 }
 .addphoto{
     padding-right:30px;
@@ -143,9 +148,9 @@
         max-width: 100%;
     }
     .area{
-     margin-right: auto;
-    margin-left: auto;
-    align-items: center;
+     margin-right: 0;
+    /* align-items: center; */
+    width: 231px;
     }
     .thankyoumessage p{
         font-size: 36px;
@@ -161,7 +166,7 @@
  }
  @media (max-width: 1000px) {
     .area{
-        margin-right: auto;
+        margin-right: 30px;;
        margin-left: auto;
        align-items: center;
        } 

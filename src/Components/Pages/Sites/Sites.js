@@ -129,9 +129,7 @@ class Sites extends Component {
     this.setState(newFilteredTag);
   }
   render() {
-
     const selectedArea = this.props.match.params.areaName;
-
 
     return (
       <div className="sitespage">
@@ -148,7 +146,7 @@ class Sites extends Component {
               checked={this.isChecked("מקום שקט")}
               onChange={this.hendleCheck}
               />
-              <label for="quiteplace">מקום שקט</label>
+              <label htmlFor="quiteplace">מקום שקט</label>
               </li>
               <li>
               <input
@@ -157,7 +155,7 @@ class Sites extends Component {
               checked={this.isChecked("מתאים למשפחות")}
               onChange={this.hendleCheck}
               />
-              <label for="families">מתאים למשפחות</label>
+              <label htmlFor="families">מתאים למשפחות</label>
               </li>
               <li>
               <input
@@ -166,7 +164,7 @@ class Sites extends Component {
               checked={this.isChecked("מסלול הליכה")}
               onChange={this.hendleCheck}
               />
-              <label for="walking">מסלול הליכה</label>
+              <label htmlFor="walking">מסלול הליכה</label>
               </li>
               <li>
               <input
@@ -175,7 +173,7 @@ class Sites extends Component {
               checked={this.isChecked("נגיש לנכים")}
               onChange={this.hendleCheck}
             />
-            <label for="disabilites">נגיש לנכים</label>
+            <label htmlFor="disabilites">נגיש לנכים</label>
             </li>
           </ul>
 

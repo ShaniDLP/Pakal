@@ -48,6 +48,7 @@ class Sendform extends Component {
             sitename: '',
             location: '',
             description: '',
+            area: 'center',
 
 
             isError: {
@@ -58,11 +59,6 @@ class Sendform extends Component {
                 location: '',
                 description: '',
             },
-            area: 0,
-            walking: false,
-            quiteplace: false,
-            families: false,
-            accessibility: false,
             showmessage: false,
             validated: true
 
@@ -75,7 +71,7 @@ class Sendform extends Component {
 
 
 
-    // מעביר את המידע לדאטה בייס בצורה דינמית
+    // מעביר את המידע לדאטה בייס בצורה דינמית- firebase
     componentDidMount() {
         axios.get('https://pakal-4a6e5.firebaseio.com/sites.json')
             .then(response => {
@@ -87,9 +83,26 @@ class Sendform extends Component {
             });
     }
 // When user click on "send" - send the data o firebase 
-    //לוגיקה של מה שקורה שלחוץ על כפתור contunie בהזמנה 
+    //לוגיקה של מה שקורה שלחוץ על כפתור contunie  
     ContinueHandler(event) {
+        event.preventDefault();
 
+        let tags = [];
+
+        if(this.state.tags_cb_1) {
+            tags.push('מסלול הליכה');
+        }
+        if(this.state.tags_cb_2) {
+            tags.push('נגיש לנכים');
+        }
+        if(this.state.tags_cb_3) {
+            tags.push('מקום שקט');
+        }
+        if(this.state.tags_cb_4) {
+            tags.push('מתאים למשפחות');
+        }
+
+        console.log(tags);
 
         axios.post('/sites.json', {
             name: this.state.name,
@@ -98,43 +111,65 @@ class Sendform extends Component {
             description: this.state.description,
             location: this.state.location,
             area: this.state.area,
-            walking: this.state.walking,
-            quiteplace: this.state.quiteplace,
-            families: this.state.families,
-            accessibility: this.state.accessibility
+            tags: tags
+            // walking: this.state.walking,
+            // quiteplace: this.state.quiteplace,
+            // families: this.state.families,
+            // accessibility: this.state.accessibility
         }
         )
             .then(response => console.log(response))
             .catch(error => console.log(error));
 
-        event.preventDefault();
-        console.log('the state updated with onChangeHandler ' + this.state)
+        
+        console.log('the state updated ContinueHandler ' + this.state);
+        
 
         this.thankyoubutton(event);
 
     }
 
+    // axios( {
+    //     url: '',
+    //     method: 'POST',
+    //     data: payload?
+    // })
+    // .then(response => {
+    //             // this.setState({ sites: response.data });
+    //             console.log('Data ')
+    //         })
+    //         .catch(error => {
+    //             // this.setState({ error: true })
+
+    //         });
+    //     })
+//update state with the data that the user enter to the fields dynamically
     onChangeHandler(event) {
         this.setState({ [event.target.name]: event.target.value });
-        console.log('the state updated withonChangeHandler ' + this.state);
+        console.log('the state updated withonChangeHandler ' + event.target.name + ': ' + event.target.value);
       
 
     }
 // when user click on "send" check if the form is valid and display "thank you" massage
     thankyoubutton(e) {
         e.preventDefault();
-        if (formValid(this.state)) {
-            console.log(this.state)
-            console.log("Form is valid!");
+        // if (formValid(this.state)) {
+        //     console.log(this.state)
+        //     console.log("Form is valid!");
+        //     this.setState({ showmessage: true })  
+        // } else {
+        //     console.log("Form is invalid!");
+        //     alert('יש למלא את כל השדות כראוי');
+        // }
             this.setState({ showmessage: true })  
-        } else {
-            console.log("Form is invalid!");
-            alert('יש למלא את כל השדות כראוי');
-        }
 
           };
+// update the state with boolean of the tags if checked
+    updateTags = (e) => {
+        this.setState({[e.target.name]: e.target.checked});
+    }
 
-// check validation for each field and update the state if error was found 
+// check validation for each field and update the state if error were found 
     formValChange = (e) => {
         e.preventDefault();
         const { name, value } = e.target;
@@ -145,11 +180,10 @@ class Sendform extends Component {
                 isError.name =
                     value.length < 2 ? "הכנס לפחות 2 תווים" : "";
                 break;
-            case "email":
-                isError.email = regExp.test(value)
-                    ? ""
-                    : "כתובת מייל אינה חוקית";
-                break;
+                case "email":
+                    isError.email = regExp.test(value)
+                        ? ""
+                        : "כתובת מייל אינה חוקית";
             case "sitename":
                 isError.sitename =
                     value.length < 4 ? "הכנס לפחות 4 תווים" : "";
@@ -240,67 +274,57 @@ class Sendform extends Component {
                                                     className={isError.sitename.length > 0 ? "is-invalid form-control" : "form-control"} />
                                             </Col>
                                         </Form.Group>
-
-                                        <Form.Group as={Row} controlId="description">
-                                            <Form.Label column sm={2}>
-                                            </Form.Label>
-                                            <Col sm={10} xs={12}>
-                                                <Form.Control placeholder="תאר את המקום" dir="rtl"
-                                                    onChange={(e) => this.formValChange(e)} name="description" value={description}
-                                                    className={isError.description.length > 0 ? "is-invalid form-control" : "form-control"} />
+                                        
+                                    <Form.Group controlId="area" >
+                                            <Col >
+                                                <div className="area">
+                                                    <Form.Control name="area" onChange={(e) => this.formValChange(e)} as="select" defaultValue="Choose..." dir="rtl" required>
+                                                        <option value="center">מרכז</option>
+                                                        <option value="north">צפון</option>
+                                                        <option value="south">דרום</option>
+                                                    </Form.Control>
+                                                </div>
                                             </Col>
                                         </Form.Group>
                                     </Row>
                                     <Row className="rowform">
+                                        <Form.Group as={Row} controlId="description">
+                                            <Form.Label column sm={2}>
+                                            </Form.Label>
+                                            <Col sm={10} xs={12}>
+                                                <Form.Control placeholder="תאר את המקום" dir="rtl" as="textarea" rows={3}
+                                                    onChange={(e) => this.formValChange(e)} name="description" value={description}
+                                                    className={isError.description.length > 0 ? "is-invalid form-control" : "form-control"} />
+                                            </Col>
+                                        </Form.Group>
                                         <Form.Group as={Row} controlId="location">
                                             <Form.Label column sm={2}>
 
                                             </Form.Label>
                                             <Col sm={10} xs={12}>
-                                                <Form.Control placeholder="איך מגיעים?" dir="rtl"
+                                                <Form.Control placeholder="איך מגיעים?" dir="rtl" as="textarea" rows={3}
                                                     onChange={(e) => this.formValChange(e)} name="location" value={location}
                                                     className={isError.location.length > 0 ? "is-invalid form-control" : "form-control"} />
                                             </Col>
                                         </Form.Group>
                                     </Row>
-                                    <div className="area">
-                                        <Form.Group controlId="area" >
-                                            <Col sm={8} xs={10} lg={5} >
-                                                <Form.Control as="select" defaultValue="Choose..." dir="rtl" required >
-                                                    <option>מרכז</option>
-                                                    <option>צפון</option>
-                                                    <option>דרום</option>
-
-                                                </Form.Control>
-                                            </Col>
-                                        </Form.Group>
-                                    </div>
-
-
-
-
+                                    
                                     {['checkbox'].map((type) => (
                                         <div key={`inline-${type}`} className="mb-3 checkbox allformtags">
-                                            <Form.Check inline label="מסלול הליכה" type={type} id={`inline-${type}-1`} className="formtags" />
-                                            <Form.Check inline label="גישה לנכים/עגלות" type={type} id={`inline-${type}-2`} className="formtags" />
-                                            <Form.Check inline label="מקום שקט" type={type} id={`inline-${type}-2`} className="formtags" />
-                                            <Form.Check inline label="מתאים למשפחות" type={type} id={`inline-${type}-2`} className="formtags" />
+                                            <Form.Check inline onChange={(e) => this.updateTags(e)} label="מסלול הליכה" type={type} id={`inline-${type}-1`} name="tags_cb_1" className="formtags" />
+                                            <Form.Check inline onChange={(e) => this.updateTags(e)} label="גישה לנכים/עגלות" type={type} id={`inline-${type}-2`} name="tags_cb_2" className="formtags" />
+                                            <Form.Check inline onChange={(e) => this.updateTags(e)} label="מקום שקט" type={type} id={`inline-${type}-3`} name="tags_cb_3" className="formtags" />
+                                            <Form.Check inline onChange={(e) => this.updateTags(e)} label="מתאים למשפחות" type={type} id={`inline-${type}-4`} name="tags_cb_4" className="formtags" />
 
                                         </div>
                                     ))}
-                                    <div className="addphoto">
-                                        <Form.Group as={Row} controlId="photo">
-                                            <Col sm={10} xs={10} lg={5} >
-                                                <Form.File id="custom-file-translate-scss" label="צרף קובץ" lang="en" custom dir="rtl" data-browse="הוסף תמונה" />
-                                            </Col>
-                                        </Form.Group>
-                                    </div>
+                                 
 
                                     <div >
                                         <Form.Group as={Row} controlId="submit">
                                             <Button variant="info" type="submit" dir="rtl" className="formbutton" onClick={this.ContinueHandler}>
                                                 שלח המלצה
-                                </Button>
+                                            </Button>
                                         </Form.Group>
                                     </div>
                                 </div>
@@ -322,41 +346,19 @@ class Sendform extends Component {
 
 export default Sendform;
 
-//   <Form.Group id="formGridCheckbox">
-// <Form.Check inline type="checkbox" label="מילה" />
+
+
+    
+
+
+
+
+// ADD PHOTO
+// <div className="addphoto">
+// <Form.Group as={Row} controlId="photo">
+//     <Col sm={10} xs={10} lg={5} >
+//         <Form.File id="custom-file-translate-scss" label="צרף קובץ" lang="en" custom dir="rtl" data-browse="הוסף תמונה" />
+//     </Col>
 // </Form.Group>
-// <Form.Group id="formGridCheckbox">
-//     <Form.Check inline type="checkbox" label="Check me out" />
-// </Form.Group>
-// <Form.Group id="formGridCheckbox">
-//     <Form.Check  inline type="checkbox" label="Check me out" />
-// </Form.Group>
-// <Form.Group id="formGridCheckbox">
-//     <Form.Check  inline type="checkbox" label="Check me out" />
-// </Form.Group>
-
-
-// componentDidMount() {
-//     axios.get('https://pakal-4a6e5.firebaseio.com/sites.json')
-//             .then(response =>{
-//                 this.setState({ingredients: response.data});
-//             } )
-//             .catch(error=>{
-//             this.setState({error: true})
-
-//             });
-
-//      }
-
-
-// sendbuttonhandler=()=> {
-
-//    axios.post('/orders.json', order)
-//         .then(response=> {
-//         this.setState({loading: false, purchasing:false});
-//         }) 
-//         .catch(error => {
-//         this.setState({loading: false, purchasing:false});  
-// }
-
+// </div<
 
