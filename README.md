@@ -9,7 +9,7 @@ Technologies: React.js, JavaScript, Jsx, Css, Firebase, Node.js, MongoDB, Expres
 
 The tasks were managed on Trello, and the Design UI was managed on Figma.
 
-A presentation that explain the targets, technologies, challenges and conclusions:
+A presentation that explain the targets, technologies, challenges, conclusions and future planning:
 https://docs.google.com/presentation/d/1vTBpmex_6q813Kme_7ZCNN9bweiJo-xItSybjAPDi-M/edit?usp=sharing 
 
 Screenshots: 
