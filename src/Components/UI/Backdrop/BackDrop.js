@@ -5,8 +5,14 @@ const backdrop = (props)=> (
 props.show? <div className="Backdrop"
 onClick={props.clicked}>
 </div> : null
-)
 
+)
 
 export default backdrop;
 
+
+// props.show?  null : <div className="Backdrop"
+// onClick={props.clicked}>
+// </div>
+// ) 
+     

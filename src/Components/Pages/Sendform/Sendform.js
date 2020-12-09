@@ -19,17 +19,17 @@ const formValid = ({ isError, ...rest }) => {
     let isValid = true;
 
     Object.values(isError).forEach(val => {
-        if (val.length > 0){ 
-        
+        if (val.length > 0) {
+
             isValid = false
         }
     });
 
     Object.values(rest).forEach(val => {
         if (val == "") {
-            console.log('זה ריק');
+            console.log('empty');
             isValid = false
-        } 
+        }
     });
 
     return isValid;
@@ -70,7 +70,7 @@ class Sendform extends Component {
 
 
 
-
+    //connect to firebase
     // מעביר את המידע לדאטה בייס בצורה דינמית- firebase
     componentDidMount() {
         axios.get('https://pakal-4a6e5.firebaseio.com/sites.json')
@@ -82,23 +82,23 @@ class Sendform extends Component {
 
             });
     }
-// When user click on "send" - send the data o firebase 
+    // When user click on "send" - send the data o firebase 
     //לוגיקה של מה שקורה שלחוץ על כפתור contunie  
     ContinueHandler(event) {
         event.preventDefault();
 
         let tags = [];
 
-        if(this.state.tags_cb_1) {
+        if (this.state.tags_cb_1) {
             tags.push('מסלול הליכה');
         }
-        if(this.state.tags_cb_2) {
+        if (this.state.tags_cb_2) {
             tags.push('נגיש לנכים');
         }
-        if(this.state.tags_cb_3) {
+        if (this.state.tags_cb_3) {
             tags.push('מקום שקט');
         }
-        if(this.state.tags_cb_4) {
+        if (this.state.tags_cb_4) {
             tags.push('מתאים למשפחות');
         }
 
@@ -112,45 +112,29 @@ class Sendform extends Component {
             location: this.state.location,
             area: this.state.area,
             tags: tags
-            // walking: this.state.walking,
-            // quiteplace: this.state.quiteplace,
-            // families: this.state.families,
-            // accessibility: this.state.accessibility
+           
         }
         )
             .then(response => console.log(response))
             .catch(error => console.log(error));
 
-        
+
         console.log('the state updated ContinueHandler ' + this.state);
-        
+
 
         this.thankyoubutton(event);
 
     }
 
-    // axios( {
-    //     url: '',
-    //     method: 'POST',
-    //     data: payload?
-    // })
-    // .then(response => {
-    //             // this.setState({ sites: response.data });
-    //             console.log('Data ')
-    //         })
-    //         .catch(error => {
-    //             // this.setState({ error: true })
 
-    //         });
-    //     })
-//update state with the data that the user enter to the fields dynamically
+    //update state with the data that the user enter to the fields dynamically
     onChangeHandler(event) {
         this.setState({ [event.target.name]: event.target.value });
         console.log('the state updated withonChangeHandler ' + event.target.name + ': ' + event.target.value);
-      
+
 
     }
-// when user click on "send" check if the form is valid and display "thank you" massage
+    // when user click on "send" check if the form is valid and display "thank you" massage
     thankyoubutton(e) {
         e.preventDefault();
         // if (formValid(this.state)) {
@@ -161,15 +145,15 @@ class Sendform extends Component {
         //     console.log("Form is invalid!");
         //     alert('יש למלא את כל השדות כראוי');
         // }
-            this.setState({ showmessage: true })  
+        this.setState({ showmessage: true })
 
-          };
-// update the state with boolean of the tags if checked
+    };
+    // update the state with boolean of the tags if checked
     updateTags = (e) => {
-        this.setState({[e.target.name]: e.target.checked});
+        this.setState({ [e.target.name]: e.target.checked });
     }
 
-// check validation for each field and update the state if error were found 
+    // check validation for each field and update the state if error were found 
     formValChange = (e) => {
         e.preventDefault();
         const { name, value } = e.target;
@@ -180,10 +164,10 @@ class Sendform extends Component {
                 isError.name =
                     value.length < 2 ? "הכנס לפחות 2 תווים" : "";
                 break;
-                case "email":
-                    isError.email = regExp.test(value)
-                        ? ""
-                        : "כתובת מייל אינה חוקית";
+            // case "email":
+            //     isError.email = regExp.test(value)
+            //         ? ""
+            //         : "כתובת מייל אינה חוקית";
             case "sitename":
                 isError.sitename =
                     value.length < 4 ? "הכנס לפחות 4 תווים" : "";
@@ -223,16 +207,15 @@ class Sendform extends Component {
 
                     <hr />
                     <p> מכיר מקום מיוחד שאף אחד עוד לא שמע עליו? שתף אותנו
-            </p>
+                    </p>
                     <div className="containerimage">
                         <Container>
-
-
                             <br />
                             <Form onSubmit={this.onSubmit} noValidate >
                                 <div className="formdetails"
                                     style={{
-                                        display: this.state.showmessage ? 'none' : 'block'
+                                    display: this.state.showmessage ? 'none' : 'block'
+                                    
                                     }} >
                                     <Row className="rowform">
                                         <Form.Group as={Row} controlId="name">
@@ -274,8 +257,8 @@ class Sendform extends Component {
                                                     className={isError.sitename.length > 0 ? "is-invalid form-control" : "form-control"} />
                                             </Col>
                                         </Form.Group>
-                                        
-                                    <Form.Group controlId="area" >
+
+                                        <Form.Group controlId="area" >
                                             <Col >
                                                 <div className="area">
                                                     <Form.Control name="area" onChange={(e) => this.formValChange(e)} as="select" defaultValue="Choose..." dir="rtl" required>
@@ -308,7 +291,7 @@ class Sendform extends Component {
                                             </Col>
                                         </Form.Group>
                                     </Row>
-                                    
+
                                     {['checkbox'].map((type) => (
                                         <div key={`inline-${type}`} className="mb-3 checkbox allformtags">
                                             <Form.Check inline onChange={(e) => this.updateTags(e)} label="מסלול הליכה" type={type} id={`inline-${type}-1`} name="tags_cb_1" className="formtags" />
@@ -318,7 +301,7 @@ class Sendform extends Component {
 
                                         </div>
                                     ))}
-                                 
+
 
                                     <div >
                                         <Form.Group as={Row} controlId="submit">
@@ -330,14 +313,9 @@ class Sendform extends Component {
                                 </div>
                                 <Thankyou showmessage={this.state.showmessage} />
                             </Form>
-
-
                         </Container>
                     </div>
-
                 </div>
-
-
             </div>
 
         )
@@ -348,7 +326,7 @@ export default Sendform;
 
 
 
-    
+
 
 
 
@@ -362,3 +340,18 @@ export default Sendform;
 // </Form.Group>
 // </div<
 
+
+    // axios( {
+    //     url: '',
+    //     method: 'POST',
+    //     data: payload?
+    // })
+    // .then(response => {
+    //             // this.setState({ sites: response.data });
+    //             console.log('Data ')
+    //         })
+    //         .catch(error => {
+    //             // this.setState({ error: true })
+
+    //         });
+    //     })

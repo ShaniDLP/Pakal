@@ -3,13 +3,14 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './Sites.css'
 import {Container} from "react-bootstrap";
 import Cards from './Cards';
-// import Filters from '../../UI/Filters/Filters';
 import ToolBar from '../../Navigation/ToolBar/Toolbar';
 import Modal from '../../Home/Modal/Modal';
 import { datasites } from './datasites';
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
 import SitesData from './SitesData';
+import { Sidebar } from 'react-sidebar-ui';
+// import sidebar from '../../Navigation/ToolBar/SideBar';
 
 
 const filters = [
@@ -38,23 +39,40 @@ class Sites extends Component {
     fadeout: false,
     areaIndex: 0,
     filterArray: [],
-    lastArea: ""
+    lastArea: "",
+    sidebar: true
 
   }
 //close modal on click
   CancelHandler = () => {
-    this.setState({ show: false })
+   this.setState({ show: false })
   }
   //open modal on click on site
   showModal = (site) => {
     site.preventDefault();
     this.setState({ show: true })
+    //check the number of the site in the array and update selectedSiteIndex
     let areaIndex = site.currentTarget.dataset.id -1;
 ;
     this.setState({
       selectedSiteIndex: areaIndex
     })
   };
+//when user click on menu icon close/open side bar
+  showSideBar = (e) =>{
+    e.preventDefault();
+    console.log('sidebar!!!');
+    if(this.state.sidebar){
+      this.setState({sidebar : false})
+    }
+    else {this.setState({sidebar : true})}
+    console.log(this.state.sidebar);
+  }
+//close the sidebar when user click on backdrop
+  closeSideBar = () => {
+    console.log('backdrop clicked!');
+    this.setState({ sidebar: true })
+  }
 
   //import the data from MongoDB to the modal using the server(called in 'show modal' function)
   importDataToModal = () => {
@@ -63,7 +81,7 @@ class Sites extends Component {
         let datasite = {}
         if (typeof response.data === "object") {
             datasite = response.data;
-        }
+        }//convert string to object 
         else if (typeof response.data === "string") {
             datasite = JSON.parse(response.data);
         }
@@ -71,7 +89,8 @@ class Sites extends Component {
             datasite = {};
             
         }
-        console.log(typeof datasite)
+        console.log(typeof datasite);
+        //update siteDB with all the data from DB
         this.setState({
             sitesDB: datasite
         })
@@ -94,6 +113,7 @@ class Sites extends Component {
 
   //filter the sites by area and than by tags.
   filtersites = () => {
+    //get the type of area that the user clicked on.
     let areaName = this.props.match.params.areaName;
     let filterDataSites = datasites;
 
@@ -128,12 +148,13 @@ class Sites extends Component {
     console.log(newFilteredTag);
     this.setState(newFilteredTag);
   }
+
   render() {
     const selectedArea = this.props.match.params.areaName;
 
     return (
       <div className="sitespage">
-        <ToolBar />
+        <ToolBar sidebar= {this.state.sidebar} onClick={this.showSideBar} close={this.closeSideBar}/>
         <div className="sites">
 
           <h2> המלצות באיזור ה{this.setArea(selectedArea)}</h2>

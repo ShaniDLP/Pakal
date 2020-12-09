@@ -1,0 +1,44 @@
+.sideside{
+    transition: all 0.3s ease-out;
+    overflow-y:hidden ;
+    overflow-x: auto;
+    position: relative;
+    z-index: 300;
+
+}
+/* all sidebar */
+._13dNw{
+    right: 0;
+    left:auto !important;
+}
+/* The icons on sidebar */
+
+._2Vept{
+    float: right;
+    padding-left: auto !important;
+    padding-right: 10px;
+    color: white !important;
+}
+/* The list on sidebar  */
+._VrCvP {
+    padding-right: 12px;
+    padding-left: auto !important;
+    text-align: right !important;
+   
+}
+.sideside a{
+    color: white !important;
+}
+
+#sidebarHeader{
+    font-size: 30px;
+    color: white !important;
+}
+#sideBarcontent{
+  padding-top:70px;  
+}
+
+._2Q5t5{
+    opacity: 0; 
+}
+

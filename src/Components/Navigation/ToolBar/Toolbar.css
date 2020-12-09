@@ -22,15 +22,19 @@ float: left;
    
  }
 
-  /* li {
-    float: left;
-    display: block;
-    padding: 8px;
-    text-decoration: none;
-  } */
-
+ #menuicon{
+  font-size: 40px;
+  display: none;
+  margin-right: 20px;
+  margin-top: 10px;
+  color: white;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 400;
+  cursor: pointer;
+}
   
-
    h1{
     margin-right: 5%;
     /* margin-bottom: 5%; */
@@ -45,6 +49,7 @@ float: left;
 
   }
 
+
   @media (max-width: 860px) {
   
     h1{
@@ -53,6 +58,8 @@ float: left;
       float: none;
       font-size: 72px;
     }
-
+    #menuicon{
+      display: inline;
+    }
 
   }

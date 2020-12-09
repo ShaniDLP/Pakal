@@ -1,6 +1,6 @@
 .Modal {
     position: fixed;
-    z-index: 500;
+    z-index: 200;
     background-color: white;
     width: 60%;
     /* height: 50%; */
@@ -18,9 +18,9 @@
     color: black;
      /* display: block;  */
    display: flex;
-    align-items: flex-start; 
-     overflow-y: auto;
-     overflow-x: hidden; 
+   align-items: flex-start; 
+   overflow-y: auto;
+   overflow-x: hidden; 
 }
 
 @media (min-width: 600px) {

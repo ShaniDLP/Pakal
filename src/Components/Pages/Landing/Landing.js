@@ -27,8 +27,7 @@ class Landing extends Component {
                 <div className="bodyy">
                 </div>
                 <Container>
-                    <div id="containerr">
-                        
+                    <div id="containerr">                  
                         <div
                             style={{
                                 display: this.state.show ? 'none' : 'block'
