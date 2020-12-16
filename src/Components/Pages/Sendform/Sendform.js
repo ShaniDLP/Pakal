@@ -12,6 +12,10 @@ import {
     Link
 } from "react-router-dom";
 import Thankyou from './ThankYou';
+import Sidebar from '../../Navigation/ToolBar/Sidebar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 
 
 //check if the requires fileds are empty
@@ -60,7 +64,8 @@ class Sendform extends Component {
                 description: '',
             },
             showmessage: false,
-            validated: true
+            validated: true,
+            sidebar:true
 
         }
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -69,7 +74,22 @@ class Sendform extends Component {
 
 
 
+//when user click on menu icon close/open side bar
+showSideBar = (e) =>{
+    e.preventDefault();
 
+    console.log('sidebar!!!');
+    if(this.state.sidebar){
+      this.setState({sidebar : false})
+    }
+    else {this.setState({sidebar : true})}
+    console.log(this.state.sidebar);
+  }
+//close the sidebar when user click on backdrop
+  closeSideBar = () => {
+    console.log('backdrop clicked!');
+    this.setState({ sidebar: true })
+ }
     //connect to firebase
     // מעביר את המידע לדאטה בייס בצורה דינמית- firebase
     componentDidMount() {
@@ -198,10 +218,13 @@ class Sendform extends Component {
 
 
         return (
-
+ 
             <div className="sendform">
-                <Navigation />
+                <FontAwesomeIcon icon={faBars} id="menuicon" onClick={this.props.showSideBar}/>
 
+                <Navigation  />
+                <Sidebar  closeSideBar={this.props.closeSideBar} sideBar={this.props.sideBar}/>
+                
                 <div className="form" dir="rtl">
                     <h2>שלח לנו המלצה </h2>
 

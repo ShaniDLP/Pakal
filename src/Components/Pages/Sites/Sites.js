@@ -9,7 +9,6 @@ import { datasites } from './datasites';
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
 import SitesData from './SitesData';
-import { Sidebar } from 'react-sidebar-ui';
 // import sidebar from '../../Navigation/ToolBar/SideBar';
 
 
@@ -40,7 +39,8 @@ class Sites extends Component {
     areaIndex: 0,
     filterArray: [],
     lastArea: "",
-    sidebar: true
+
+    // sideBar: true
 
   }
 //close modal on click
@@ -58,21 +58,21 @@ class Sites extends Component {
       selectedSiteIndex: areaIndex
     })
   };
-//when user click on menu icon close/open side bar
-  showSideBar = (e) =>{
-    e.preventDefault();
-    console.log('sidebar!!!');
-    if(this.state.sidebar){
-      this.setState({sidebar : false})
+    //when user click on menu icon close/open side bar
+    showSideBar = (e) =>{
+      e.preventDefault();
+      console.log('sidebar!!!');
+      if(this.state.sidebar){
+        this.setState({sideBar : false})
+      }
+      else {this.setState({sidebar : true})}
+      console.log(this.state.sideBar);
     }
-    else {this.setState({sidebar : true})}
-    console.log(this.state.sidebar);
-  }
-//close the sidebar when user click on backdrop
-  closeSideBar = () => {
-    console.log('backdrop clicked!');
-    this.setState({ sidebar: true })
-  }
+  //close the sidebar when user click on backdrop
+    closeSideBar = () => {
+      console.log('backdrop clicked!');
+      this.setState({ sideBar: true })
+    }
 
   //import the data from MongoDB to the modal using the server(called in 'show modal' function)
   importDataToModal = () => {
@@ -154,7 +154,7 @@ class Sites extends Component {
 
     return (
       <div className="sitespage">
-        <ToolBar sidebar= {this.state.sidebar} onClick={this.showSideBar} close={this.closeSideBar}/>
+        <ToolBar sideBar= {this.props.sideBar} onClick={this.props.showSideBar} closeSideBar={this.props.closeSideBar}/>
         <div className="sites">
 
           <h2> המלצות באיזור ה{this.setArea(selectedArea)}</h2>
