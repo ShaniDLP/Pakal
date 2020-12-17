@@ -21,10 +21,10 @@ class Pakal extends Component {
   showSideBar = (e) =>{
     e.preventDefault();
     console.log('sidebar!!!');
-    if(this.state.sidebar){
+    if(this.state.sideBar){
       this.setState({sideBar : false})
     }
-    else {this.setState({sidebar : true})}
+    else {this.setState({sideBar : true})}
     console.log(this.state.sideBar);
   }
 //close the sidebar when user click on backdrop
