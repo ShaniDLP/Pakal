@@ -14,7 +14,7 @@
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    height: 850px;
+    
     top: 0;
     left: 0;
     right: 0;
@@ -153,6 +153,18 @@
     z-index: 400;
     cursor: pointer;
 }
+.sendform .externalLinks{
+position: absolute;
+
+}
+
+.sendform .externalLinks #github{
+    color:white !important;
+}
+.sendform .externalLinks #linkedin{
+    color:white !important;
+}
+
 .form .rowform{
     /* margin-right: 50px ;
     margin-left: 50px ; */
@@ -165,6 +177,9 @@ input{
 }
 
 @media (max-width: 575px) {
+    .sendform{
+        height: 130%;
+    }
     .form form{
       width: 70%;
     }
@@ -175,11 +190,11 @@ input{
 
     }
     
-    .area{
+    /* .area{ */
      /* margin-right: 0; */
     /* align-items: center; */
     /* width: 231px; */
-    }
+    /* } */
     .thankyoumessage p{
         font-size: 36px;
      

@@ -40,6 +40,16 @@
     filter: blur(8px); 
     -webkit-filter: blur(8px); 
 }
+.maindiv .externalLinks{
+    position: absolute;
+    color:white;
+ }
+ .maindiv .externalLinks #github{
+    color:white !important;
+}
+.maindiv .externalLinks #linkedin{
+    color:white !important;
+}
 
 #landingContainer {
     background:  url('../../../images/center/background.jpg') center center no-repeat;

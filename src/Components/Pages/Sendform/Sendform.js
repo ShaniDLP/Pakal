@@ -9,6 +9,8 @@ import Thankyou from './ThankYou';
 import Sidebar from '../../Navigation/ToolBar/Sidebar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import ExternalLinks from '../../UI/ExternalLinks/ExternalLinks';
+
 
 
 
@@ -326,6 +328,7 @@ class Sendform extends Component {
                       
                     </div>
                 </div>
+                 <ExternalLinks/>
             </div>
 
         )

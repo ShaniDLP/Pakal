@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import Navigation from '../../Navigation/ToolBar/Navigation';
 import SelectArea from './selectArea';
-
+import ExternalLinks from '../../UI/ExternalLinks/ExternalLinks';
 
 class Landing extends Component {
     state = {
@@ -17,7 +17,7 @@ class Landing extends Component {
     };
     render() {
         return (
-            <div>
+            <div class="maindiv">
                 <div className="landingBody">
                 </div>
                 <Container>
@@ -36,6 +36,7 @@ class Landing extends Component {
                          <SelectArea show={this.state.show} />
                     </div>
                 </Container>
+                <ExternalLinks/>
             </div>
 
         )

@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Container } from 'react-bootstrap';
 import './Info.css';
 import ToolBar from '../../Navigation/ToolBar/Toolbar';
-// import { FirebaseDatabaseMutation } from "@react-firebase/database";
+import ExternalLinks from '../../UI/ExternalLinks/ExternalLinks';
 
+// import { FirebaseDatabaseMutation } from "@react-firebase/database";
 
 
 const info = (props) => (
@@ -39,11 +40,9 @@ const info = (props) => (
 
 
         </Container>
+        <ExternalLinks/>
     </div>
 )
-
-
-
 
 export default info;
 

@@ -9,6 +9,8 @@ import { datasites } from './datasites';
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
 import SitesData from './SitesData';
+import ExternalLinks from '../../UI/ExternalLinks/ExternalLinks';
+
 // import Inputs from './Inputs';
 // import sidebar from '../../Navigation/ToolBar/SideBar';
 
@@ -198,6 +200,9 @@ class Sites extends Component {
 
           </Modal>
         </div>
+
+
+        <ExternalLinks/>
       </div>
 
 
