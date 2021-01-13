@@ -31,7 +31,7 @@
    border-radius: 4px;
     background-color: rgb(238, 238, 238);
     opacity: 0.8;
-    width: 50%;
+    /* width: 50%; */
     margin: auto;
     
 
@@ -55,7 +55,7 @@
      opacity: 0.9;
      letter-spacing: 0.15em;
      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  }
-  .form p{
+.form p{
       text-align: center;
   }
 .form hr {
@@ -66,19 +66,33 @@
     color: rgb(232, 244, 255);
     margin: auto;
 }
-.form .formbutton{
+.form #description {
+    width: 180px;
+    margin-left: 43px;
+    max-width: 253px;
+    
+}
+.form .formbutton  {
     /* position: relative;
     float: left;
     left:15%;
     bottom: 5%; */
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 2%;
-    align-items: center;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    margin-bottom: 2% !important;
+    align-items: center !important;
 }
+/* .form-control.is-invalid{
+    /* padding-right:  0  !important ; */
+    /* margin-left: 0px !important; */
+/* } */ 
+.submitButton{
+    max-width: 100% !important;
+}
+
 .form .allformtags{
-    margin-right: 30px;
-    justify-content: center;
+    /* justify-content: center; */
+    margin: auto;
 }
 
 .form .formtags{
@@ -91,7 +105,9 @@
     transition: .3s;
     cursor: pointer;
     font-size: 12px;
-    margin: 5px 2px;
+    /* margin: 5px 2px; */
+    /* margin-right: 0 15px; */
+
 }
 .form .formtags label{
     padding-right: 5px;
@@ -100,18 +116,24 @@
 .form .formtags:checked::after{
     background: #8ddddde0;  
 }
-.area{
+/* .form-group{
+    max-width: 253px;
+} */
+/* .area{
     display: block;
-    margin-right: 30px;
-}
+  
+} */
 .area select {
     cursor: pointer;
-    width: 187px;
+    /* width: 187px; */
+    /* width: 180px; */
 }
 .addphoto{
     padding-right:30px;
 }
-
+.form #location{
+    width: 180px;
+}
 
 .thankyoumessage p {
     font-size: 72px;
@@ -131,7 +153,16 @@
     z-index: 400;
     cursor: pointer;
 }
+.form .rowform{
+    /* margin-right: 50px ;
+    margin-left: 50px ; */
+    justify-content: space-around !important;
+}
+input{
+    padding: 0px 0px;
+    margin: 0px 0px;
 
+}
 
 @media (max-width: 575px) {
     .form form{
@@ -143,21 +174,19 @@
      text-align: center;
 
     }
-    .rowform{
-        margin-right: auto;
-        margin-left: auto;
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
+    
     .area{
-     margin-right: 0;
+     /* margin-right: 0; */
     /* align-items: center; */
-    width: 231px;
+    /* width: 231px; */
     }
     .thankyoumessage p{
         font-size: 36px;
      
     }
+    /* .form .rowform{
+        margin-right: 30px;
+    } */
     /* .form .formbutton{
         position: relative;
         float: left;
@@ -166,31 +195,58 @@
         
     } */
  }
+ @media (max-width: 860px) {
+    
+    .navdesktop{
+      display: none;
+  
+      }
+      .form p{
+          color: black;
+      }
+
+     .sendform #menuicon{
+          display: inline;
+        }
+        /* .rowform{
+            margin-right: auto;
+            margin-left: auto;
+            flex: 0 0 100%;
+            max-width: 100%;
+           
+        } */
+}
+
  @media (max-width: 1000px) {
-    .area{
-        margin-right: 30px;;
+    /* .area{
+         margin-right: 30px;
        margin-left: auto;
        align-items: center;
-       } 
+       }  */
 
        .thankyoumessage p{
         font-size: 36px;
      
     }
-
+    /* .form .rowform{
+        margin-right: 80px;
+    } */
+    /* .rowform{
+        margin-right: auto;
+        margin-left: auto;
+        flex: 0 0 100%;
+        max-width: 100%;
+       
+    } */
   
 }
-@media (max-width: 860px) {
-    
-      .navdesktop{
-        display: none;
-    
-        }
-        .form p{
-            color: black;
-        }
 
-       .sendform #menuicon{
-            display: inline;
-          }
+@media (max-width: 1200px) {
+   
+   
+    /* .form .rowform{
+        margin-right: 28px;
+    }  */
 }
+
+

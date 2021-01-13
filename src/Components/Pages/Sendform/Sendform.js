@@ -5,12 +5,6 @@ import './Sendform.css';
 // import { FirebaseDatabaseMutation } from "@react-firebase/database";
 import axios from '../../../Containers/axios-sites';
 import Navigation from '../../Navigation/ToolBar/Navigation';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
 import Thankyou from './ThankYou';
 import Sidebar from '../../Navigation/ToolBar/Sidebar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,18 +15,23 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 //check if the requires fileds are empty
 const formValid = ({ isError, ...rest }) => {
     let isValid = true;
+    console.log('empty1 ' + isValid);
 
     Object.values(isError).forEach(val => {
         if (val.length > 0) {
 
-            isValid = false
+            isValid = false;
+            console.log('empty2 ' + isValid + ', val  is ' + val);
         }
     });
+    console.log(Object.values(rest));
 
     Object.values(rest).forEach(val => {
-        if (val == "") {
-            console.log('empty');
-            isValid = false
+        if (typeof (val) != 'boolean' && val == "") {
+
+            isValid = false;
+            console.log('empty3');
+            console.log('empty ' + isValid + ', val  is ' + val);
         }
     });
 
@@ -65,7 +64,7 @@ class Sendform extends Component {
             },
             showmessage: false,
             validated: true,
-            sidebar:true
+            sidebar: true
 
         }
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -74,22 +73,22 @@ class Sendform extends Component {
 
 
 
-//when user click on menu icon close/open side bar
-showSideBar = (e) =>{
-    e.preventDefault();
+    //when user click on menu icon close/open side bar
+    showSideBar = (e) => {
+        e.preventDefault();
 
-    console.log('sidebar!!!');
-    if(this.state.sidebar){
-      this.setState({sidebar : false})
+        console.log('sidebar!!!');
+        if (this.state.sidebar) {
+            this.setState({ sidebar: false })
+        }
+        else { this.setState({ sidebar: true }) }
+        console.log(this.state.sidebar);
     }
-    else {this.setState({sidebar : true})}
-    console.log(this.state.sidebar);
-  }
-//close the sidebar when user click on backdrop
-  closeSideBar = () => {
-    console.log('backdrop clicked!');
-    this.setState({ sidebar: true })
- }
+    //close the sidebar when user click on backdrop
+    closeSideBar = () => {
+        console.log('backdrop clicked!');
+        this.setState({ sidebar: true })
+    }
     //connect to firebase
     // מעביר את המידע לדאטה בייס בצורה דינמית- firebase
     componentDidMount() {
@@ -132,7 +131,7 @@ showSideBar = (e) =>{
             location: this.state.location,
             area: this.state.area,
             tags: tags
-           
+
         }
         )
             .then(response => console.log(response))
@@ -157,15 +156,16 @@ showSideBar = (e) =>{
     // when user click on "send" check if the form is valid and display "thank you" massage
     thankyoubutton(e) {
         e.preventDefault();
-        // if (formValid(this.state)) {
-        //     console.log(this.state)
-        //     console.log("Form is valid!");
-        //     this.setState({ showmessage: true })  
-        // } else {
-        //     console.log("Form is invalid!");
-        //     alert('יש למלא את כל השדות כראוי');
-        // }
-        this.setState({ showmessage: true })
+        if (formValid(this.state)) {
+
+            console.log(this.state)
+            console.log("Form is valid!");
+            this.setState({ showmessage: true })
+        } else {
+            console.log("Form is invalid!");
+            alert('יש למלא את כל השדות כראוי');
+        }
+        // this.setState({ showmessage: true })
 
     };
     // update the state with boolean of the tags if checked
@@ -184,10 +184,10 @@ showSideBar = (e) =>{
                 isError.name =
                     value.length < 2 ? "הכנס לפחות 2 תווים" : "";
                 break;
-            // case "email":
-            //     isError.email = regExp.test(value)
-            //         ? ""
-            //         : "כתובת מייל אינה חוקית";
+            case "email":
+                isError.email = regExp.test(value)
+                    ? ""
+                    : "כתובת מייל אינה חוקית";
             case "sitename":
                 isError.sitename =
                     value.length < 4 ? "הכנס לפחות 4 תווים" : "";
@@ -218,13 +218,13 @@ showSideBar = (e) =>{
 
 
         return (
- 
-            <div className="sendform">
-                <FontAwesomeIcon icon={faBars} id="menuicon" onClick={this.props.showSideBar}/>
 
-                <Navigation  />
-                <Sidebar  closeSideBar={this.props.closeSideBar} sideBar={this.props.sideBar}/>
-                
+            <div className="sendform">
+                <FontAwesomeIcon icon={faBars} id="menuicon" onClick={this.props.showSideBar} />
+
+                <Navigation />
+                <Sidebar closeSideBar={this.props.closeSideBar} sideBar={this.props.sideBar} />
+
                 <div className="form" dir="rtl">
                     <h2>שלח לנו המלצה </h2>
 
@@ -232,89 +232,71 @@ showSideBar = (e) =>{
                     <p> מכיר מקום מיוחד שאף אחד עוד לא שמע עליו? שתף אותנו
                     </p>
                     <div className="containerimage">
-                        <Container>
-                            <br />
-                            <Form onSubmit={this.onSubmit} noValidate >
+
+                        <div className="wrapper">
+
+                            <Form onSubmit={this.onSubmit} noValidate>
                                 <div className="formdetails"
                                     style={{
-                                    display: this.state.showmessage ? 'none' : 'block'
-                                    
+                                        display: this.state.showmessage ? 'none' : 'block'
+
                                     }} >
-                                    <Row className="rowform">
-                                        <Form.Group as={Row} controlId="name">
-                                            <Form.Label column sm={2}>
-                                            </Form.Label>
-                                            <Col sm={10} xs={12}>
-                                                <Form.Control placeholder="שם הממליץ" dir="rtl"
-                                                    value={name} onChange={(e) => this.formValChange(e)}
-                                                    name="name"
-                                                    className={isError.name.length > 0 ? "is-invalid form-control" : "form-control"}
-                                                />
-                                                {isError.name.length > 0 && (
-                                                    <span className="invalid-feedback">{isError.name}</span>
-                                                )}
-                                            </Col>
+                                    <Form.Row>
 
-                                        </Form.Group>
+                                        <Col>
+                                            <Form.Control placeholder="שם הממליץ" dir="rtl" controlId="name"
+                                                value={name} onChange={(e) => this.formValChange(e)}
+                                                name="name"
+                                                className={isError.name.length > 0 ? "is-invalid form-control" : "form-control"}/>
+                                            {isError.name.length > 0 && (
+                                                <span className="invalid-feedback">{isError.name}</span>
+                                            )}
+                                        </Col>
 
-                                        <Form.Group as={Row} controlId="email" >
-                                            <Form.Label column sm={2}>
-                                            </Form.Label>
-                                            <Col sm={10} xs={12}>
-                                                <Form.Control type="email" placeholder="דואר אלקטרוני" dir="rtl"
-                                                    onChange={(e) => this.formValChange(e)} name="email" value={email}
-                                                    className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"} />
-                                                {isError.email.length > 0 && (
-                                                    <span className="invalid-feedback">{isError.email}</span>
-                                                )}
-                                            </Col>
-                                        </Form.Group>
-                                    </Row>
-                                    <Row className="rowform">
-                                        <Form.Group as={Row} controlId="sitename" >
-                                            <Form.Label column sm={2}>
-                                            </Form.Label>
-                                            <Col sm={10} xs={12}>
-                                                <Form.Control placeholder="שם האתר" dir="rtl"
-                                                    onChange={(e) => this.formValChange(e)} name="sitename" value={sitename}
-                                                    className={isError.sitename.length > 0 ? "is-invalid form-control" : "form-control"} />
-                                            </Col>
+                                        <Col>
+                                        <Form.Control type="email" placeholder="דואר אלקטרוני" dir="rtl" controlId="email"
+                                        onChange={(e) => this.formValChange(e)} name="email" value={email}
+                                        className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"} />
+                                        {isError.email.length > 0 && (
+                                        <span className="invalid-feedback">{isError.email}</span>
+                                    )}
+                                    </Col>
+                                    </Form.Row>
+
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} controlId="sitename">
+                                        <Form.Control placeholder="שם האתר" dir="rtl"
+                                        onChange={(e) => this.formValChange(e)} name="sitename" value={sitename}
+                                        className={isError.sitename.length > 0 ? "is-invalid form-control" : "form-control"} />
                                         </Form.Group>
 
-                                        <Form.Group controlId="area" >
-                                            <Col >
-                                                <div className="area">
-                                                    <Form.Control name="area" onChange={(e) => this.formValChange(e)} as="select" defaultValue="Choose..." dir="rtl" required>
-                                                        <option value="center">מרכז</option>
-                                                        <option value="north">צפון</option>
-                                                        <option value="south">דרום</option>
-                                                    </Form.Control>
-                                                </div>
-                                            </Col>
-                                        </Form.Group>
-                                    </Row>
-                                    <Row className="rowform">
-                                        <Form.Group as={Row} controlId="description">
-                                            <Form.Label column sm={2}>
-                                            </Form.Label>
-                                            <Col sm={10} xs={12}>
-                                                <Form.Control placeholder="תאר את המקום" dir="rtl" as="textarea" rows={3}
-                                                    onChange={(e) => this.formValChange(e)} name="description" value={description}
-                                                    className={isError.description.length > 0 ? "is-invalid form-control" : "form-control"} />
-                                            </Col>
-                                        </Form.Group>
-                                        <Form.Group as={Row} controlId="location">
-                                            <Form.Label column sm={2}>
+                                        <Form.Group as={Col} controlId="area" >
+                                        <div className="area">
+                                             <Form.Control name="area" onChange={(e) => this.formValChange(e)} as="select" defaultValue="איזור" dir="rtl" required>
+                                                <option value="center">מרכז</option>
+                                                <option value="north">צפון</option>
+                                                <option value="south">דרום</option>
+                                            </Form.Control>
+                                        </div>
 
-                                            </Form.Label>
-                                            <Col sm={10} xs={12}>
-                                                <Form.Control placeholder="איך מגיעים?" dir="rtl" as="textarea" rows={3}
-                                                    onChange={(e) => this.formValChange(e)} name="location" value={location}
-                                                    className={isError.location.length > 0 ? "is-invalid form-control" : "form-control"} />
-                                            </Col>
                                         </Form.Group>
-                                    </Row>
+                                    </Form.Row>
 
+
+                                    <Form.Row>
+                                        <Col>
+                                        <Form.Control placeholder="תאר את המקום" dir="rtl" as="textarea" rows={3} controlId="description"
+                                        onChange={(e) => this.formValChange(e)} name="description" value={description}
+                                        className={isError.description.length > 0 ? "is-invalid form-control" : "form-control"}
+                                    />
+                                        </Col>
+                                        <Col>
+                                        <Form.Control placeholder="איך מגיעים?" dir="rtl" as="textarea" rows={3} controlId="location"
+                                        onChange={(e) => this.formValChange(e)} name="location" value={location}
+                                        className={isError.location.length > 0 ? "is-invalid form-control" : "form-control"}
+                                    />                                        </Col>
+                                    </Form.Row>
                                     {['checkbox'].map((type) => (
                                         <div key={`inline-${type}`} className="mb-3 checkbox allformtags">
                                             <Form.Check inline onChange={(e) => this.updateTags(e)} label="מסלול הליכה" type={type} id={`inline-${type}-1`} name="tags_cb_1" className="formtags" />
@@ -326,17 +308,22 @@ showSideBar = (e) =>{
                                     ))}
 
 
-                                    <div >
-                                        <Form.Group as={Row} controlId="submit">
+                                    <div>
+                                        <Form.Group as={Row} controlId="submit" className="submitButton">
                                             <Button variant="info" type="submit" dir="rtl" className="formbutton" onClick={this.ContinueHandler}>
                                                 שלח המלצה
-                                            </Button>
+        </Button>
                                         </Form.Group>
                                     </div>
+
+
                                 </div>
                                 <Thankyou showmessage={this.state.showmessage} />
                             </Form>
-                        </Container>
+
+                        </div>
+
+                      
                     </div>
                 </div>
             </div>
@@ -378,3 +365,108 @@ export default Sendform;
 
     //         });
     //     })
+
+
+
+
+//     <Container>
+//     <br />
+//     <Form onSubmit={this.onSubmit} noValidate >
+//         <div className="formdetails"
+//             style={{
+//                 display: this.state.showmessage ? 'none' : 'block'
+
+//             }} >
+//             <Row className="rowform">
+//                 <Form.Group as={Row} controlId="name">
+
+//                     <Col sm={10} xs={12}>
+//                         <Form.Control placeholder="שם הממליץ" dir="rtl"
+//                             value={name} onChange={(e) => this.formValChange(e)}
+//                             name="name"
+//                             className={isError.name.length > 0 ? "is-invalid form-control" : "form-control"}
+//                         />
+//                         {isError.name.length > 0 && (
+//                             <span className="invalid-feedback">{isError.name}</span>
+//                         )}
+//                     </Col>
+
+//                 </Form.Group>
+
+//                 <Form.Group as={Row} controlId="email" >
+
+//                     <Col sm={10} xs={12}>
+//                         <Form.Control type="email" placeholder="דואר אלקטרוני" dir="rtl"
+//                             onChange={(e) => this.formValChange(e)} name="email" value={email}
+//                             className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"} />
+//                         {isError.email.length > 0 && (
+//                             <span className="invalid-feedback">{isError.email}</span>
+//                         )}
+//                     </Col>
+//                 </Form.Group>
+//             </Row>
+//             <Row className="rowform">
+//                 <Form.Group as={Row} controlId="sitename" >
+
+//                     <Col sm={10} xs={12}>
+//                         <Form.Control placeholder="שם האתר" dir="rtl"
+//                             onChange={(e) => this.formValChange(e)} name="sitename" value={sitename}
+//                             className={isError.sitename.length > 0 ? "is-invalid form-control" : "form-control"} />
+//                     </Col>
+//                 </Form.Group>
+
+//                 <Form.Group controlId="area" >
+//                     <div className="area">
+//                         <Form.Control name="area" onChange={(e) => this.formValChange(e)} as="select" defaultValue="Choose..." dir="rtl" required>
+//                             <option value="center">מרכז</option>
+//                             <option value="north">צפון</option>
+//                             <option value="south">דרום</option>
+//                         </Form.Control>
+//                     </div>
+
+//                 </Form.Group>
+//             </Row>
+//             <Row className="rowform">
+//                 <Form.Group as={Row} controlId="description">
+
+//                     <Col sm={10} xs={12}>
+//                         <Form.Control placeholder="תאר את המקום" dir="rtl" as="textarea" rows={3}
+//                             onChange={(e) => this.formValChange(e)} name="description" value={description}
+//                             className={isError.description.length > 0 ? "is-invalid form-control" : "form-control"}
+//                         />
+//                     </Col>
+//                 </Form.Group>
+//                 <Form.Group as={Row} controlId="location">
+
+//                     <Col sm={10} xs={12}>
+//                         <Form.Control placeholder="איך מגיעים?" dir="rtl" as="textarea" rows={3}
+//                             onChange={(e) => this.formValChange(e)} name="location" value={location}
+//                             className={isError.location.length > 0 ? "is-invalid form-control" : "form-control"}
+//                         />
+//                     </Col>
+//                 </Form.Group>
+//             </Row>
+
+//             {['checkbox'].map((type) => (
+//                 <div key={`inline-${type}`} className="mb-3 checkbox allformtags">
+//                     <Form.Check inline onChange={(e) => this.updateTags(e)} label="מסלול הליכה" type={type} id={`inline-${type}-1`} name="tags_cb_1" className="formtags" />
+//                     <Form.Check inline onChange={(e) => this.updateTags(e)} label="גישה לנכים/עגלות" type={type} id={`inline-${type}-2`} name="tags_cb_2" className="formtags" />
+//                     <Form.Check inline onChange={(e) => this.updateTags(e)} label="מקום שקט" type={type} id={`inline-${type}-3`} name="tags_cb_3" className="formtags" />
+//                     <Form.Check inline onChange={(e) => this.updateTags(e)} label="מתאים למשפחות" type={type} id={`inline-${type}-4`} name="tags_cb_4" className="formtags" />
+
+//                 </div>
+//             ))}
+
+
+
+//             <div >
+//                 <Form.Group as={Row} controlId="submit" className="submitButton">
+//                     <Button variant="info" type="submit" dir="rtl" className="formbutton" onClick={this.ContinueHandler}>
+//                         שלח המלצה
+//                     </Button>
+//                 </Form.Group>
+//             </div>
+//         </div>
+//         <Thankyou showmessage={this.state.showmessage} />
+//     </Form>
+// </Container>
