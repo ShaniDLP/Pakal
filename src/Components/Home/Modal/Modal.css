@@ -22,12 +22,42 @@
    overflow-y: auto;
    overflow-x: hidden; 
 }
+.Modal:-webkit-scrollbar {
+    width: 1em;
+}
+
+.Modal::-webkit-scrollbar-thumb {
+  background: #e3e7ff; 
+  border-radius: 20px;
+}
+
+.Modal::-webkit-scrollbar-track {
+  background: #a4cbff; 
+}
+#closeModalButton{
+font-size: 32px;
+float: left;
+position: relative;
+padding-bottom: 10px;
+}
 
 @media (min-width: 600px) {
     .Modal {
         display: block; 
         /* height: 70%; */
+     
     }
-} 
+}
+@media (max-width: 599px) {
+    .Modal {
+        display: block; 
+        /* height: 70%; */
+        left: 10%;
+        right: 10%;
+        width: 80%;
+    }
+}
+
+
 
 /* left: calc(50% - 250px); */

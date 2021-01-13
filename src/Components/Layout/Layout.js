@@ -30,7 +30,7 @@ class Layout extends Component {
 export default Layout;
 
 
-  /// לשימוש מאוחר יותר 
+//   / לשימוש מאוחר יותר 
 //  תפריט צידי למובייל 
 
 // <SideDrawer 

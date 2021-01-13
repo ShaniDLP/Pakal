@@ -1,5 +1,5 @@
 import React from 'react';
-import '../ToolBar/Toolbar.css';
+import './Toolbar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigation from './Navigation';
 // import Sidebar from './SideBar';

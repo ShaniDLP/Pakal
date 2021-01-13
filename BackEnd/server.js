@@ -7,8 +7,6 @@ var url = "mongodb+srv://sdlp:Em1qnmDSLrbvVMOH@cluster0.p334u.gcp.mongodb.net/Pa
 const app = express();
 const port = 5000; 
 
-app.get('/', (req, res) => {  res.send('Hello World!')});
-app.get('/new', (req, res) => {  res.send('this is new')});
 
  // send data from mongoDB to client 
  app.get('/getinfo', function (req, res) {

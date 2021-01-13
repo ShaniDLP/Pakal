@@ -1,33 +1,27 @@
 import React, { Component } from 'react';
 import './Landing.css';
 import { Container } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import Navigation from '../../Navigation/ToolBar/Navigation';
 import SelectArea from './selectArea';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
-
 
 
 class Landing extends Component {
     state = {
-        show: false
+        show: false,
+        
     }
     startbutton() {
         this.setState({ show: true })
-        console.log('hii');
+        console.log('start button clicked');
     };
     render() {
         return (
             <div>
-                <div className="bodyy">
+                <div className="landingBody">
                 </div>
                 <Container>
-                    <div id="containerr">                  
+                    <div id="landingContainer">                  
                         <div
                             style={{
                                 display: this.state.show ? 'none' : 'block'

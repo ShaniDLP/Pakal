@@ -1,16 +1,7 @@
 *{
     font-family: 'Varela Round' !important;
 }
-/* body {
-    background: url('./background.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-     filter: blur(8px); 
-     -webkit-filter: blur(8px); 
-z-index: -1;
-  } */
+
 @font-face {
     font-family: 'Varela Round';
     /* src: url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap') format("truetype"); */
@@ -20,12 +11,12 @@ z-index: -1;
 .body-content {
     height: calc(100vh - 18px);
 } */
-.bodyy{
+.landingBody{
     
     position: relative;
     top:0 !important;
 }
-.bodyy::after{
+.landingBody::after{
     
     content: "";
     opacity: 0.8;
@@ -50,7 +41,7 @@ z-index: -1;
     -webkit-filter: blur(8px); 
 }
 
-#containerr {
+#landingContainer {
     background:  url('../../../images/center/background.jpg') center center no-repeat;
     background-size: 100%;
     width: 70%;
@@ -68,9 +59,9 @@ z-index: -1;
     
 }
 
-#containerr h3 {
+#landingContainer h3 {
         font-family: 'Varela Round' !important;
-        font-size:90px;
+        font-size:80px;
        text-align: left;
         position: absolute;
         -webkit-text-stroke-width: medium;
@@ -83,12 +74,12 @@ z-index: -1;
         left:2%;
 
     }
- #containerr ul {
+ #landingContainer ul {
         bottom: 0;
         
         right: 0;
     }
-#containerr p{
+#landingContainer p{
         text-align: right;
         color: ghostwhite;
         position: absolute;
@@ -147,7 +138,7 @@ nav > ul > li {
 }
 
 @media screen and (max-width: 860px) {
-#containerr h3 {
+#landingContainer h3 {
       font-size: 40px;
     }
  
@@ -155,14 +146,14 @@ nav > ul > li {
       display: flex;
   }
 
-  #containerr p{
+  #landingContainer p{
       font-size: 12px;
       top:40%;
       left: 0;
       right:40%;
       left: 20% ;
   }
-  #containerr h3{
+  #landingContainer h3{
       
       text-align:center;
       top:10%;
@@ -178,7 +169,7 @@ nav > ul > li {
       right: 25%;
       top:90%;
   }
-  #containerr{
+  #landingContainer{
     background-position: center center; 
     /* background-attachment: fixed;  */
     /* background-repeat: no-repeat; */
