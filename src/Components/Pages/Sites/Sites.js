@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Sites.css'
-import {Container} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Cards from './Cards';
 import ToolBar from '../../Navigation/ToolBar/Toolbar';
 import Modal from '../../Home/Modal/Modal';
@@ -9,6 +9,7 @@ import { datasites } from './datasites';
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
 import SitesData from './SitesData';
+// import Inputs from './Inputs';
 // import sidebar from '../../Navigation/ToolBar/SideBar';
 
 
@@ -43,60 +44,46 @@ class Sites extends Component {
     // sideBar: true
 
   }
-//close modal on click
+  //close modal on click
   CancelHandler = () => {
-   this.setState({ show: false })
+    this.setState({ show: false })
   }
   //open modal on click on site
   showModal = (site) => {
     site.preventDefault();
     this.setState({ show: true })
     //check the number of the site in the array and update selectedSiteIndex
-    let areaIndex = site.currentTarget.dataset.id -1;
-;
+    let areaIndex = site.currentTarget.dataset.id - 1;
+    ;
     this.setState({
       selectedSiteIndex: areaIndex
     })
   };
-    //when user click on menu icon close/open side bar
-    showSideBar = (e) =>{
-      e.preventDefault();
-      console.log('sidebar!!!');
-      if(this.state.sidebar){
-        this.setState({sideBar : false})
-      }
-      else {this.setState({sidebar : true})}
-      console.log(this.state.sideBar);
-    }
-  //close the sidebar when user click on backdrop
-    closeSideBar = () => {
-      console.log('backdrop clicked!');
-      this.setState({ sideBar: true })
-    }
+  
 
   //import the data from MongoDB to the modal using the server(called in 'show modal' function)
   importDataToModal = () => {
     axios.get("/getinfo").then(response => {
- 
-        let datasite = {}
-        if (typeof response.data === "object") {
-            datasite = response.data;
-        }//convert string to object 
-        else if (typeof response.data === "string") {
-            datasite = JSON.parse(response.data);
-        }
-        else {
-            datasite = {};
-            
-        }
-        console.log(typeof datasite);
-        //update siteDB with all the data from DB
-        this.setState({
-            sitesDB: datasite
-        })
+
+      let datasite = {}
+      if (typeof response.data === "object") {
+        datasite = response.data;
+      }//convert string to object 
+      else if (typeof response.data === "string") {
+        datasite = JSON.parse(response.data);
+      }
+      else {
+        datasite = {};
+
+      }
+      console.log(typeof datasite);
+      //update siteDB with all the data from DB
+      this.setState({
+        sitesDB: datasite
+      })
     });
-}
-//Translate the area from the array to hebrew
+  }
+  //Translate the area from the array to hebrew
   setArea = (area) => {
     let selectesAreaName = "מרכז";
     if (area === "north") {
@@ -120,10 +107,10 @@ class Sites extends Component {
     if (areaName) {
       filterDataSites = filterDataSites.filter(site => site.area === areaName)
     }
-    
-    if(this.state.lastArea !== areaName) {
-      this.setState({lastArea: areaName, filterArray: []});
-    
+
+    if (this.state.lastArea !== areaName) {
+      this.setState({ lastArea: areaName, filterArray: [] });
+
     }
     if (this.state.filterArray.length !== 0) {
       filterDataSites = filterDataSites.filter(site => site.tags && site.tags.some(tag => this.state.filterArray.indexOf(tag) >= 0));
@@ -154,62 +141,61 @@ class Sites extends Component {
 
     return (
       <div className="sitespage">
-        <ToolBar sideBar= {this.props.sideBar} onClick={this.props.showSideBar} closeSideBar={this.props.closeSideBar}/>
+        <ToolBar sideBar={this.props.sideBar} onClick={this.props.showSideBar} closeSideBar={this.props.closeSideBar} />
         <div className="sites">
 
           <h2> המלצות באיזור ה{this.setArea(selectedArea)}</h2>
           <hr />
           <ul >
             <li>
-            <input
-              id="quiteplace" name="מקום שקט"
-              type="checkbox"
-              checked={this.isChecked("מקום שקט")}
-              onChange={this.hendleCheck}
+              <input
+                id="quiteplace" name="מקום שקט"
+                type="checkbox"
+                checked={this.isChecked("מקום שקט")}
+                onChange={this.hendleCheck}
               />
               <label htmlFor="quiteplace">מקום שקט</label>
-              </li>
-              <li>
+            </li>
+            <li>
               <input
-              id="families" name="מתאים למשפחות"
-              type="checkbox"
-              checked={this.isChecked("מתאים למשפחות")}
-              onChange={this.hendleCheck}
+                id="families" name="מתאים למשפחות"
+                type="checkbox"
+                checked={this.isChecked("מתאים למשפחות")}
+                onChange={this.hendleCheck}
               />
               <label htmlFor="families">מתאים למשפחות</label>
-              </li>
-              <li>
+            </li>
+            <li>
               <input
-              id="walking" name="מסלול הליכה"
-              type="checkbox"
-              checked={this.isChecked("מסלול הליכה")}
-              onChange={this.hendleCheck}
+                id="walking" name="מסלול הליכה"
+                type="checkbox"
+                checked={this.isChecked("מסלול הליכה")}
+                onChange={this.hendleCheck}
               />
               <label htmlFor="walking">מסלול הליכה</label>
-              </li>
-              <li>
+            </li>
+            <li>
               <input
-              id="disabilites" name="נגיש לנכים"
-              type="checkbox"
-              checked={this.isChecked("נגיש לנכים")}
-              onChange={this.hendleCheck}
-            />
-            <label htmlFor="disabilites">נגיש לנכים</label>
+                id="disabilites" name="נגיש לנכים"
+                type="checkbox"
+                checked={this.isChecked("נגיש לנכים")}
+                onChange={this.hendleCheck}
+              />
+              <label htmlFor="disabilites">נגיש לנכים</label>
             </li>
           </ul>
 
-
           <Container>
-            <Cards imgs={this.filtersites()} onClick={(e) => {this.showModal(e);this.importDataToModal();}} />
+            <Cards imgs={this.filtersites()} onClick={(e) => { this.showModal(e); this.importDataToModal(); }} />
           </Container>
         </div>
 
         <div>
           <Modal show={this.state.show} modalClosed={this.CancelHandler}>
-           <SitesData selectedSiteIndex={this.state.selectedSiteIndex}
-                      sitesDB={this.state.sitesDB}
+            <SitesData selectedSiteIndex={this.state.selectedSiteIndex}
+              sitesDB={this.state.sitesDB}
             />
-           
+
           </Modal>
         </div>
       </div>

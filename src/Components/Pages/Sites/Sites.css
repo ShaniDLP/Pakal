@@ -30,7 +30,7 @@ img{
 }
 img:hover {
   opacity: 1;
-  width: 300px;
+  width: 320px;
   transition: 0.3s;
 } 
 .sites{
@@ -74,7 +74,10 @@ img:hover {
   border-radius: 10px;
   box-shadow: 5px 2px 15px #a8b4fc80;
 }
+.sites label:hover{
+  background: #5568e2;
 
+}
 .sites ul{
   display: flex;
   flex-wrap: wrap;
@@ -85,8 +88,10 @@ img:hover {
 
 .sites li{
   margin: 5px 5px;
+  box-shadow: 0 0.5 0.714285714rem #b0abf3;
+
 }
-  .sitespage{
+.sitespage{
     /* background-image: url('../../../images/white4.png'); */
     background-size: cover;
     margin-top: 0;
@@ -99,6 +104,15 @@ img:hover {
     margin: 0 5px;
     animation: show .8s ease;
   }
+
+  #siteCard{
+     width: 20rem;
+      /* box-shadow: 0 0.5 0.714285714rem #b0abf3; */
+       cursor: pointer;
+      margin-bottom: 20px ;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
 
   @media (max-width: 1245px) {
     /* .sites{
