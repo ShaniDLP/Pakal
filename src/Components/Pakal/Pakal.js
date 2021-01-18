@@ -7,7 +7,7 @@ import Info from '../Pages/Info/Info';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route
 } from "react-router-dom";
 
@@ -35,7 +35,7 @@ class Pakal extends Component {
 
     render() {
         return (
-            <BrowserRouter>
+          
                 <Router>
                     <Route path="/" exact >
                         <Landing
@@ -62,9 +62,8 @@ class Pakal extends Component {
                         sideBar= {this.state.sideBar}/>
                     </Route>
                 </Router>
-            </BrowserRouter>
-
-        );
+           
+     );
     }
 }
 export default Pakal;

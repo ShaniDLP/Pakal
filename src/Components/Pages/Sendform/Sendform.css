@@ -94,7 +94,27 @@
     /* justify-content: center; */
     margin: auto;
 }
+.wrapper{
+    max-width: 600px;
+    margin: auto;
+}
 
+Form.Group{
+    padding: 10px;
+}
+.form-row{
+margin: 0 15px;
+}
+.form-control{
+margin: 15px 0px;
+}
+
+
+@media screen and (max-width: 500px) {
+    .form-row  {
+          flex-direction: column !important;
+        }
+    } 
 .form .formtags{
     list-style: none;
     background: #ffffffe0;
