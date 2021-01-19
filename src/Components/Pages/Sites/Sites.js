@@ -195,7 +195,7 @@ class Sites extends Component {
         <div>
           <Modal show={this.state.show} modalClosed={this.CancelHandler}>
             <SitesData selectedSiteIndex={this.state.selectedSiteIndex}
-              sitesDB={this.state.sitesDB}
+              sitesDB={this.state.datasites}
             />
 
           </Modal>
