@@ -7,7 +7,7 @@ import './Sidebar.css';
 import {Sidebar, InputItem, DropdownItem, Icon, Item, Logo, LogoText} from 'react-sidebar-ui';
 import 'react-sidebar-ui/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faCheckSquare, faCoffee, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 // import 'https://unpkg.com/react-sidebar-ui@1.2.0/dist/index.css';
 import Backdrop from '../../UI/Backdrop/BackDrop';
 
@@ -23,7 +23,6 @@ const sidebar = (props) => {
    
      <div id="sideBarcontent">   
         <h3>פקל קפה</h3>
-          
             <FontAwesomeIcon icon={faCoffee} />
            
   
