@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f72b9f64bccc1d2a7856b587e53da02c",
+    "revision": "1a4e238d4a2845feab14dddb93ba80c5",
     "url": "/Pakal/index.html"
   },
   {
-    "revision": "cae52e99474994d8be03",
+    "revision": "e660e66e476e46fb3fcb",
     "url": "/Pakal/static/css/2.240cfb12.chunk.css"
   },
   {
-    "revision": "c72407619c51558bd193",
-    "url": "/Pakal/static/css/main.c1547bb7.chunk.css"
+    "revision": "656cdf1e735ae06852b5",
+    "url": "/Pakal/static/css/main.87c6a2ab.chunk.css"
   },
   {
-    "revision": "cae52e99474994d8be03",
-    "url": "/Pakal/static/js/2.7f9fd7bd.chunk.js"
+    "revision": "e660e66e476e46fb3fcb",
+    "url": "/Pakal/static/js/2.d871825a.chunk.js"
   },
   {
     "revision": "42780b3dfc4008075422892f0026a2f6",
-    "url": "/Pakal/static/js/2.7f9fd7bd.chunk.js.LICENSE.txt"
+    "url": "/Pakal/static/js/2.d871825a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c72407619c51558bd193",
-    "url": "/Pakal/static/js/main.0a3fb335.chunk.js"
+    "revision": "656cdf1e735ae06852b5",
+    "url": "/Pakal/static/js/main.16b85ad7.chunk.js"
   },
   {
     "revision": "0e0fbf658c6b6794e545",
