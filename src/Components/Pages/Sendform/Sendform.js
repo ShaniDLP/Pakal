@@ -151,7 +151,7 @@ class Sendform extends Component {
     //update state with the data that the user enter to the fields dynamically
     onChangeHandler(event) {
         this.setState({ [event.target.name]: event.target.value });
-        console.log('the state updated withonChangeHandler ' + event.target.name + ': ' + event.target.value);
+        console.log('the state updated withontChangeHandler ' + event.target.name + ': ' + event.target.value);
 
 
     }

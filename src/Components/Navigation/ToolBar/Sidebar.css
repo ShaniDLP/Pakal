@@ -1,4 +1,4 @@
-.sideside{
+.sideBar{
     transition: all 0.3s ease-out;
     overflow-y:hidden ;
     overflow-x: auto;
@@ -26,7 +26,7 @@
     text-align: right !important;
    
 }
-.sideside a{
+.sideBar a{
     color: white !important;
 }
 
@@ -34,11 +34,11 @@
     font-size: 30px;
     color: white !important;
 }
-#sideBarcontent{
+#sideBarContent{
   padding-top:70px;  
 }
 
 ._2Q5t5{
-    opacity: 0; 
+    display: none; 
 }
 

@@ -23,12 +23,7 @@ const toolbar = (props) => (
     {props.children}
   </div>
 );
-// const {sidebar} = this.props; 
-// const mapStateToProps = (state) => {
-//   return{
-//       sidebar: state.sidebar
-//   }
-// }
+
 
 export default  toolbar;
 // connect(mapStateToProps)

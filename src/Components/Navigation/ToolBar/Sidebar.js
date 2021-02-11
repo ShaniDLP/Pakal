@@ -17,11 +17,11 @@ const sidebar = (props) => {
     
     <Backdrop show ={!props.sideBar}
     clicked={props.closeSideBar}/>
-    <div className="sideside">
+    <div className="sideBar">
     <Sidebar isCollapsed={props.sideBar}
            bgColor= 'black'>
    
-     <div id="sideBarcontent">   
+     <div id="sideBarContent">   
         <h3>פקל קפה</h3>
             <FontAwesomeIcon icon={faCoffee} />
            

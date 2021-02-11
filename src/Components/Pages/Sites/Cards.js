@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import './Sites.css';
 
 
-const Cards = ({ imgs, onClick, id }) =>
+const Cards = ({ imgs, onClick }) =>
   <ul>
     {imgs.map(
       (img, i) =>

@@ -19,7 +19,7 @@ class Pakal extends Component {
   //when user click on menu icon close/open side bar
   showSideBar = (e) => {
     e.preventDefault();
-    console.log('sidebar!!!');
+    console.log(' user clicked on sidebar');
     if (this.state.sideBar) {
       this.setState({ sideBar: false })
     }
