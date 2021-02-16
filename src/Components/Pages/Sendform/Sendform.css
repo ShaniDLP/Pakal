@@ -1,27 +1,32 @@
 .sendform {
     color: rgb(255, 255, 255);
     text-align: right;
-    /* margin-top: 25%; */
-    /* background-image: url('../../../images/bonim.jpg'); */
     background: url('../../../images/center/motza.jpg') no-repeat center center fixed;
     background-size: cover;
     height: 100%;
     content: "";
-    
-    /* also change the blend mode to what suits you, from darken, to other 
-    many options as you deem fit*/
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    
+    background-position: center center;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     position: absolute;
     z-index: -1;
+    background-color: #f14d24;
+    overflow: auto;
    
+}
+.sendform img{
+   height: 100px;
+   position: absolute;
+   cursor: pointer;
+   margin: 5px 5px;
+   left: 0;
+  
 }
 .form form{
     /* color: rgb(58, 58, 58); */
@@ -37,7 +42,7 @@
 
 }
 .formdetails{
-    z-index: -5;
+    /* z-index: -5; */
 }
 .form form form.Control {
     color: black !important;
@@ -73,25 +78,18 @@
     
 }
 .form .formbutton  {
-    /* position: relative;
-    float: left;
-    left:15%;
-    bottom: 5%; */
+ 
     margin-right: auto !important;
     margin-left: auto !important;
     margin-bottom: 2% !important;
     align-items: center !important;
 }
-/* .form-control.is-invalid{
-    /* padding-right:  0  !important ; */
-    /* margin-left: 0px !important; */
-/* } */ 
+
 .submitButton{
     max-width: 100% !important;
 }
 
 .form .allformtags{
-    /* justify-content: center; */
     margin: auto;
 }
 .wrapper{
@@ -110,11 +108,22 @@ margin: 15px 0px;
 }
 
 
-@media screen and (max-width: 500px) {
-    .form-row  {
-          flex-direction: column !important;
-        }
-    } 
+
+
+.sendform .externalLinks{
+    position: fixed;
+    float: left;
+    bottom: 5px;
+    
+    }
+    
+.sendform .externalLinks #github{
+        color:white !important;
+    }
+.sendform .externalLinks #linkedin{
+        color:white !important;
+    }
+
 .form .formtags{
     list-style: none;
     background: #ffffffe0;
@@ -125,9 +134,7 @@ margin: 15px 0px;
     transition: .3s;
     cursor: pointer;
     font-size: 12px;
-    /* margin: 5px 2px; */
-    /* margin-right: 0 15px; */
-
+ 
 }
 .form .formtags label{
     padding-right: 5px;
@@ -136,17 +143,10 @@ margin: 15px 0px;
 .form .formtags:checked::after{
     background: #8ddddde0;  
 }
-/* .form-group{
-    max-width: 253px;
-} */
-/* .area{
-    display: block;
-  
-} */
+
 .area select {
     cursor: pointer;
-    /* width: 187px; */
-    /* width: 180px; */
+    
 }
 .addphoto{
     padding-right:30px;
@@ -172,23 +172,11 @@ margin: 15px 0px;
     top: 0;
     z-index: 500;
     cursor: pointer;
-}
-.sendform .externalLinks{
-position: absolute;
 
-}
-
-.sendform .externalLinks #github{
-    color:white !important;
-}
-.sendform .externalLinks #linkedin{
-    color:white !important;
 }
 
 .form .rowform{
-    /* margin-right: 50px ;
-    margin-left: 50px ; */
-    justify-content: space-around !important;
+     justify-content: space-around !important;
 }
 input{
     padding: 0px 0px;
@@ -197,9 +185,9 @@ input{
 }
 
 @media (max-width: 575px) {
-    .sendform{
-        height: 130%;
-    }
+    .form-row  {
+        flex-direction: column !important;
+      }
     .form form{
       width: 70%;
     }
@@ -209,29 +197,18 @@ input{
      text-align: center;
 
     }
-    
-    /* .area{ */
-     /* margin-right: 0; */
-    /* align-items: center; */
-    /* width: 231px; */
-    /* } */
+ 
     .thankyoumessage p{
         font-size: 36px;
      
     }
-    /* .form .rowform{
-        margin-right: 30px;
-    } */
-    /* .form .formbutton{
-        position: relative;
-        float: left;
-        left:15%;
-        bottom: 0;
-        
-    } */
+
  }
  @media (max-width: 860px) {
-    
+    .sendform{
+     /* background: url('../../../images/center/‏‏motza2.jpg') no-repeat center center fixed; */
+
+    }
     .navdesktop{
       display: none;
   
@@ -239,51 +216,20 @@ input{
       .form p{
           color: black;
       }
-
      .sendform #menuicon{
           display: inline;
           z-index: 1000;
         }
-        
-        /* .rowform{
-            margin-right: auto;
-            margin-left: auto;
-            flex: 0 0 100%;
-            max-width: 100%;
-           
-        } */
+        .form h2{
+         margin-top: 50px;   
+        }      
 }
-
  @media (max-width: 1000px) {
-    /* .area{
-         margin-right: 30px;
-       margin-left: auto;
-       align-items: center;
-       }  */
-
        .thankyoumessage p{
         font-size: 36px;
      
     }
-    /* .form .rowform{
-        margin-right: 80px;
-    } */
-    /* .rowform{
-        margin-right: auto;
-        margin-left: auto;
-        flex: 0 0 100%;
-        max-width: 100%;
-       
-    } */
-  
-}
 
-@media (max-width: 1200px) {
-   
-   
-    /* .form .rowform{
-        margin-right: 28px;
-    }  */
 }
 
 

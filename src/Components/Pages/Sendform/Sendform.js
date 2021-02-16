@@ -10,8 +10,8 @@ import Sidebar from '../../Navigation/ToolBar/Sidebar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import ExternalLinks from '../../UI/ExternalLinks/ExternalLinks';
-
-
+import { Link } from "react-router-dom";
+import pakalLogo from '../../../images/logo/pakallogo.png';
 
 
 //check if the requires fileds are empty
@@ -223,6 +223,7 @@ class Sendform extends Component {
 
             <div className="sendform">
                 <FontAwesomeIcon icon={faBars} id="menuicon" onClick={this.props.showSideBar} />
+                <Link to="/"> <img src={pakalLogo} alt="pakallogo" /></Link>
 
                 <Navigation />
                 <Sidebar closeSideBar={this.props.closeSideBar} sideBar={this.props.sideBar} />
@@ -233,7 +234,7 @@ class Sendform extends Component {
                     <hr />
                     <p> מכיר מקום מיוחד שאף אחד עוד לא שמע עליו? שתף אותנו
                     </p>
-                    <div className="containerimage">
+                    <div>
 
                         <div className="wrapper">
 
@@ -246,41 +247,41 @@ class Sendform extends Component {
                                     <Form.Row>
 
                                         <Col>
-                                            <Form.Control placeholder="שם הממליץ" dir="rtl" controlId="name"
+                                            <Form.Control placeholder="שם הממליץ" dir="rtl" controlid="name"
                                                 value={name} onChange={(e) => this.formValChange(e)}
                                                 name="name"
-                                                className={isError.name.length > 0 ? "is-invalid form-control" : "form-control"}/>
+                                                className={isError.name.length > 0 ? "is-invalid form-control" : "form-control"} />
                                             {isError.name.length > 0 && (
                                                 <span className="invalid-feedback">{isError.name}</span>
                                             )}
                                         </Col>
 
                                         <Col>
-                                        <Form.Control type="email" placeholder="דואר אלקטרוני" dir="rtl" controlId="email"
-                                        onChange={(e) => this.formValChange(e)} name="email" value={email}
-                                        className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"} />
-                                        {isError.email.length > 0 && (
-                                        <span className="invalid-feedback">{isError.email}</span>
-                                    )}
-                                    </Col>
+                                            <Form.Control type="email" placeholder="דואר אלקטרוני" dir="rtl" controlid="email"
+                                                onChange={(e) => this.formValChange(e)} name="email" value={email}
+                                                className={isError.email.length > 0 ? "is-invalid form-control" : "form-control"} />
+                                            {isError.email.length > 0 && (
+                                                <span className="invalid-feedback">{isError.email}</span>
+                                            )}
+                                        </Col>
                                     </Form.Row>
 
 
                                     <Form.Row>
-                                        <Form.Group as={Col} controlId="sitename">
-                                        <Form.Control placeholder="שם האתר" dir="rtl"
-                                        onChange={(e) => this.formValChange(e)} name="sitename" value={sitename}
-                                        className={isError.sitename.length > 0 ? "is-invalid form-control" : "form-control"} />
+                                        <Form.Group as={Col} controlid="sitename">
+                                            <Form.Control placeholder="שם האתר" dir="rtl"
+                                                onChange={(e) => this.formValChange(e)} name="sitename" value={sitename}
+                                                className={isError.sitename.length > 0 ? "is-invalid form-control" : "form-control"} />
                                         </Form.Group>
 
-                                        <Form.Group as={Col} controlId="area" >
-                                        <div className="area">
-                                             <Form.Control name="area" onChange={(e) => this.formValChange(e)} as="select" defaultValue="איזור" dir="rtl" required>
-                                                <option value="center">מרכז</option>
-                                                <option value="north">צפון</option>
-                                                <option value="south">דרום</option>
-                                            </Form.Control>
-                                        </div>
+                                        <Form.Group as={Col} controlid="area" >
+                                            <div className="area">
+                                                <Form.Control name="area" onChange={(e) => this.formValChange(e)} as="select" defaultValue="איזור" dir="rtl" required>
+                                                    <option value="center">מרכז</option>
+                                                    <option value="north">צפון</option>
+                                                    <option value="south">דרום</option>
+                                                </Form.Control>
+                                            </div>
 
                                         </Form.Group>
                                     </Form.Row>
@@ -288,16 +289,16 @@ class Sendform extends Component {
 
                                     <Form.Row>
                                         <Col>
-                                        <Form.Control placeholder="תאר את המקום" dir="rtl" as="textarea" rows={3} controlId="description"
-                                        onChange={(e) => this.formValChange(e)} name="description" value={description}
-                                        className={isError.description.length > 0 ? "is-invalid form-control" : "form-control"}
-                                    />
+                                            <Form.Control placeholder="תאר את המקום" dir="rtl" as="textarea" rows={3} controlid="description"
+                                                onChange={(e) => this.formValChange(e)} name="description" value={description}
+                                                className={isError.description.length > 0 ? "is-invalid form-control" : "form-control"}
+                                            />
                                         </Col>
                                         <Col>
-                                        <Form.Control placeholder="איך מגיעים?" dir="rtl" as="textarea" rows={3} controlId="location"
-                                        onChange={(e) => this.formValChange(e)} name="location" value={location}
-                                        className={isError.location.length > 0 ? "is-invalid form-control" : "form-control"}
-                                    />                                        </Col>
+                                            <Form.Control placeholder="איך מגיעים?" dir="rtl" as="textarea" rows={3} controlid="location"
+                                                onChange={(e) => this.formValChange(e)} name="location" value={location}
+                                                className={isError.location.length > 0 ? "is-invalid form-control" : "form-control"}
+                                            />                                        </Col>
                                     </Form.Row>
                                     {['checkbox'].map((type) => (
                                         <div key={`inline-${type}`} className="mb-3 checkbox allformtags">
@@ -311,10 +312,10 @@ class Sendform extends Component {
 
 
                                     <div>
-                                        <Form.Group as={Row} controlId="submit" className="submitButton">
+                                        <Form.Group as={Row} controlid="submit" className="submitButton">
                                             <Button variant="info" type="submit" dir="rtl" className="formbutton" onClick={this.ContinueHandler}>
                                                 שלח המלצה
-        </Button>
+                                            </Button>
                                         </Form.Group>
                                     </div>
 
@@ -325,10 +326,10 @@ class Sendform extends Component {
 
                         </div>
 
-                      
+
                     </div>
                 </div>
-                 <ExternalLinks/>
+                <ExternalLinks />
             </div>
 
         )

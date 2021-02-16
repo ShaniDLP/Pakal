@@ -24,11 +24,11 @@
     
   }
     
-img{
+ .sites img{
   opacity: 0.9;
   cursor: pointer;
 }
-img:hover {
+.sites img:hover {
   opacity: 1;
   width: 320px;
   transition: 0.3s;

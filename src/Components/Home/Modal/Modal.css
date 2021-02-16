@@ -2,8 +2,7 @@
     position: fixed;
     z-index: 200;
     background-color: white;
-    width: 60%;
-    /* height: 50%; */
+    max-width: 60%;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 1px 1px 1px black;
@@ -16,46 +15,41 @@
     transition: all 0.3s ease-out;
     text-align: right;
     color: black;
-     /* display: block;  */
-   display: flex;
-   align-items: flex-start; 
-   overflow-y: auto;
-   overflow-x: hidden; 
+    overflow-y: auto;
+    overflow-x: hidden; 
+   
+    
 }
 .Modal:-webkit-scrollbar {
     width: 1em;
 }
 
 .Modal::-webkit-scrollbar-thumb {
-  background: #e3e7ff; 
-  border-radius: 20px;
+    background: #e3e7ff; 
+    border-radius: 20px;
 }
 
 .Modal::-webkit-scrollbar-track {
-  background: #a4cbff; 
+    background: #a4cbff; 
 }
 #closeModalButton{
-font-size: 32px;
-float: left;
-position: relative;
-padding-bottom: 10px;
+    font-size: 32px;
+    float: left;
+    position: relative;
+    padding-bottom: 10px;
 }
 
-@media (min-width: 600px) {
-    .Modal {
-        display: block; 
-     
-    }
-}
+
 @media (max-width: 599px) {
     .Modal {
-        display: block; 
-        left: 10%;
-        right: 10%;
-        width: 80%;
+    display: block; 
+    left: 10%;
+    right: 10%;
+    width: 80%;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
     }
 }
 
 
 
-/* left: calc(50% - 250px); */
