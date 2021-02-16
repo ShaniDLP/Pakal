@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from './Sidebar';
 import {connect} from 'react-redux';
-import pakalLogo from '../../../images/logo/1.png';
+import pakalLogo from '../../../images/logo/pakal_logo.png';
 import  {Link} from "react-router-dom";
 
 

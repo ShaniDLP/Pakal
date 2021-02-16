@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import ExternalLinks from '../../UI/ExternalLinks/ExternalLinks';
 import { Link } from "react-router-dom";
-import pakalLogo from '../../../images/logo/pakallogo.png';
+import pakalLogo from '../../../images/logo/pakal_logo.png';
 
 
 //check if the requires fileds are empty

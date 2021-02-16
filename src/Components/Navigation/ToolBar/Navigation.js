@@ -8,9 +8,7 @@ import {
 } from "react-router-dom";
 import logoo from '../../../images/logo/menu2.png';
 
-
-
-const navigation = (props, onClick) => (
+ const navigation = (props, onClick) => (
   <div className="navigation">
  
   <ul>
@@ -22,8 +20,6 @@ const navigation = (props, onClick) => (
      </ul>
   </div>
 )
-
-
 
 export default navigation;
 // <img src={logoo} alt="logo" id="coffeelogo" onClick={onClick} ></img>
