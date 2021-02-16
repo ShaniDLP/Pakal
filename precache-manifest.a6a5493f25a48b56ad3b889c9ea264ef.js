@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "447711994ea6758179714e40340d6c46",
+    "revision": "ceb329cad26d6573b5ec965f4f09afe5",
     "url": "/Pakal/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Pakal/static/css/2.240cfb12.chunk.css"
   },
   {
-    "revision": "2416695850a10eb27f6e",
-    "url": "/Pakal/static/css/main.799399cb.chunk.css"
+    "revision": "40ad0a776dd22750fce5",
+    "url": "/Pakal/static/css/main.a0e19376.chunk.css"
   },
   {
     "revision": "f9cea18ca67ec3d620d9",
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Pakal/static/js/2.576d6519.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2416695850a10eb27f6e",
+    "revision": "40ad0a776dd22750fce5",
     "url": "/Pakal/static/js/main.8f7c73fd.chunk.js"
   },
   {

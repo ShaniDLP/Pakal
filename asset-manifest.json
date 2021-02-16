@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Pakal/static/css/main.799399cb.chunk.css",
+    "main.css": "/Pakal/static/css/main.a0e19376.chunk.css",
     "main.js": "/Pakal/static/js/main.8f7c73fd.chunk.js",
     "main.js.map": "/Pakal/static/js/main.8f7c73fd.chunk.js.map",
     "runtime-main.js": "/Pakal/static/js/runtime-main.b4cbf253.js",
@@ -9,10 +9,10 @@
     "static/js/2.576d6519.chunk.js": "/Pakal/static/js/2.576d6519.chunk.js",
     "static/js/2.576d6519.chunk.js.map": "/Pakal/static/js/2.576d6519.chunk.js.map",
     "index.html": "/Pakal/index.html",
-    "precache-manifest.973c0d7a1dfad2aaa6ee5f913797958b.js": "/Pakal/precache-manifest.973c0d7a1dfad2aaa6ee5f913797958b.js",
+    "precache-manifest.a6a5493f25a48b56ad3b889c9ea264ef.js": "/Pakal/precache-manifest.a6a5493f25a48b56ad3b889c9ea264ef.js",
     "service-worker.js": "/Pakal/service-worker.js",
     "static/css/2.240cfb12.chunk.css.map": "/Pakal/static/css/2.240cfb12.chunk.css.map",
-    "static/css/main.799399cb.chunk.css.map": "/Pakal/static/css/main.799399cb.chunk.css.map",
+    "static/css/main.a0e19376.chunk.css.map": "/Pakal/static/css/main.a0e19376.chunk.css.map",
     "static/js/2.576d6519.chunk.js.LICENSE.txt": "/Pakal/static/js/2.576d6519.chunk.js.LICENSE.txt",
     "static/media/1.png": "/Pakal/static/media/1.a3e64ff1.png",
     "static/media/Toolbar.css": "/Pakal/static/media/Frame.ad611e42.jpg",
@@ -47,7 +47,7 @@
     "static/js/runtime-main.b4cbf253.js",
     "static/css/2.240cfb12.chunk.css",
     "static/js/2.576d6519.chunk.js",
-    "static/css/main.799399cb.chunk.css",
+    "static/css/main.a0e19376.chunk.css",
     "static/js/main.8f7c73fd.chunk.js"
   ]
 }
