@@ -1,31 +1,35 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f4df389918cd16b3e1122e065b01ea6d",
+    "revision": "447711994ea6758179714e40340d6c46",
     "url": "/Pakal/index.html"
   },
   {
-    "revision": "e660e66e476e46fb3fcb",
+    "revision": "f9cea18ca67ec3d620d9",
     "url": "/Pakal/static/css/2.240cfb12.chunk.css"
   },
   {
-    "revision": "7cb4fff3ff669fba2ed5",
-    "url": "/Pakal/static/css/main.074a826c.chunk.css"
+    "revision": "2416695850a10eb27f6e",
+    "url": "/Pakal/static/css/main.799399cb.chunk.css"
   },
   {
-    "revision": "e660e66e476e46fb3fcb",
-    "url": "/Pakal/static/js/2.d871825a.chunk.js"
+    "revision": "f9cea18ca67ec3d620d9",
+    "url": "/Pakal/static/js/2.576d6519.chunk.js"
   },
   {
     "revision": "42780b3dfc4008075422892f0026a2f6",
-    "url": "/Pakal/static/js/2.d871825a.chunk.js.LICENSE.txt"
+    "url": "/Pakal/static/js/2.576d6519.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7cb4fff3ff669fba2ed5",
-    "url": "/Pakal/static/js/main.56bb10ad.chunk.js"
+    "revision": "2416695850a10eb27f6e",
+    "url": "/Pakal/static/js/main.8f7c73fd.chunk.js"
   },
   {
     "revision": "0e0fbf658c6b6794e545",
     "url": "/Pakal/static/js/runtime-main.b4cbf253.js"
+  },
+  {
+    "revision": "a3e64ff18b0a16aaa90f2e6208d03095",
+    "url": "/Pakal/static/media/1.a3e64ff1.png"
   },
   {
     "revision": "ad611e4212cc3a74008ef67ae9a39c44",
@@ -110,6 +114,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "1852f548f283828857e063ba14210863",
     "url": "/Pakal/static/media/nahal_og.1852f548.jpg"
+  },
+  {
+    "revision": "3a0c97226a74412add5175aedcef566c",
+    "url": "/Pakal/static/media/pakallogo.3a0c9722.png"
   },
   {
     "revision": "2367a1b219e92d24d5bc3bcb88a28d42",
