@@ -205,23 +205,22 @@ input{
 
  }
  @media (max-width: 860px) {
-    .sendform{
-     /* background: url('../../../images/center/‏‏motza2.jpg') no-repeat center center fixed; */
-
+    .sendform img {
+      height: 56px;
     }
     .navdesktop{
       display: none;
   
       }
       .form p{
-          color: black;
+      color: black;
       }
      .sendform #menuicon{
-          display: inline;
-          z-index: 1000;
+      display: inline;
+      z-index: 1000;
         }
         .form h2{
-         margin-top: 50px;   
+      margin-top: 50px;   
         }      
 }
  @media (max-width: 1000px) {
