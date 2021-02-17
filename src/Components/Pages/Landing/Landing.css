@@ -66,7 +66,7 @@
 #landingContainer h3 {
         font-family: 'Varela Round' !important;
         font-size:80px;
-       text-align: left;
+        text-align: left;
         position: absolute;
         -webkit-text-stroke-width: medium;
         text-shadow: 0px 4px 4px rgba(104, 100, 100, 0.25);
@@ -153,12 +153,13 @@ nav > ul > li {
       text-shadow:1px 1px gray;
   }
   #landingContainer h3{
-      letter-spacing: 0.04em;
+      
       text-align:center;
       top:10%;
       left: 25%;
       right: 25%;
-      font-size: 40px;  
+      font-size: 40px; 
+      -webkit-text-stroke-width: thin; 
   }
   .startbutton{
       margin-right: auto;
