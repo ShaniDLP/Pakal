@@ -210,18 +210,20 @@ input{
     }
     .navdesktop{
       display: none;
-  
-      }
-      .form p{
+    }
+    .form p{
       color: black;
-      }
-     .sendform #menuicon{
+    }
+    .sendform #menuicon{
       display: inline;
       z-index: 1000;
-        }
-        .form h2{
+    }
+    .sendform .externalLinks{
+      left: 4px;
+    }
+    .form h2{
       margin-top: 50px;   
-        }      
+    }      
 }
  @media (max-width: 1000px) {
        .thankyoumessage p{
