@@ -48,7 +48,8 @@
     max-width: 80%;
     max-height: calc(100vh - 100px);
     overflow-y: auto;
-    top: 15%;
+    top: 10%;
+    bottom: 10%;
     }
 }
 
