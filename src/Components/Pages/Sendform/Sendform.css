@@ -3,7 +3,7 @@
     text-align: right;
     background: url('../../../images/center/motza.jpg') no-repeat center center fixed;
     background-size: cover;
-    height: 100%;
+    height: 100vh;
     content: "";
     background-size: cover;
     -webkit-background-size: cover;
