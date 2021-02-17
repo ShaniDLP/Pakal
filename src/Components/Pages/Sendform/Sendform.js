@@ -223,7 +223,7 @@ class Sendform extends Component {
 
             <div className="sendform">
                 <FontAwesomeIcon icon={faBars} id="menuicon" onClick={this.props.showSideBar} />
-                <Link to="/"> <img src={pakalLogo} alt="pakallogo" /></Link>
+                <Link to="/"> <img src={pakalLogo} alt="pakallogo"/></Link>
 
                 <Navigation />
                 <Sidebar closeSideBar={this.props.closeSideBar} sideBar={this.props.sideBar} />

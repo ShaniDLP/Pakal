@@ -4,13 +4,9 @@
 
 @font-face {
     font-family: 'Varela Round';
-    /* src: url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap') format("truetype"); */
     src: url('../../UI/Font/VarelaRound-Regular.ttf') format("truetype");
 }
-/* 
-.body-content {
-    height: calc(100vh - 18px);
-} */
+
 .landingBody{
     
     position: relative;
@@ -21,8 +17,6 @@
     content: "";
     opacity: 0.8;
     background: rgb(26, 31, 41) url("./background.jpg") no-repeat center center fixed;
-    /* also change the blend mode to what suits you, from darken, to other 
-    many options as you deem fit*/
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -75,10 +69,7 @@
        text-align: left;
         position: absolute;
         -webkit-text-stroke-width: medium;
-        /* background: -webkit-linear-gradient(#eee, #333); */
-        /* -webkit-background-clip: text; */
         text-shadow: 0px 4px 4px rgba(104, 100, 100, 0.25);
-        /* color: rgb(46, 44, 44); */
         color: honeydew;
         top: 40%;
         left:2%;
@@ -148,10 +139,7 @@ nav > ul > li {
 }
 
 @media screen and (max-width: 860px) {
-#landingContainer h3 {
-      font-size: 40px;
-    }
- 
+
   .box{
       display: flex;
   }
@@ -162,27 +150,26 @@ nav > ul > li {
       left: 0;
       right:40%;
       left: 20% ;
+      text-shadow:1px 1px gray;
   }
   #landingContainer h3{
-      
+      letter-spacing: 0.04em;
       text-align:center;
       top:10%;
       left: 25%;
       right: 25%;
-      
+      font-size: 40px;  
   }
   .startbutton{
-    margin-right: auto;
-    margin-left: auto;
-    align-items: center;
-    left: 25%;
+      margin-right: auto;
+      margin-left: auto;
+      align-items: center;
+      left: 25%;
       right: 25%;
       top:90%;
   }
   #landingContainer{
     background-position: center center; 
-    /* background-attachment: fixed;  */
-    /* background-repeat: no-repeat; */
     background-size: cover;
     margin: auto(-50%,-50%);
   }

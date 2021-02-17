@@ -16,7 +16,7 @@
     bottom: 0;
     position: absolute;
     z-index: -1;
-    background-color: #f14d24;
+    background-color: #ffffff;
     overflow: auto;
    
 }
@@ -183,6 +183,18 @@ input{
     margin: 0px 0px;
 
 }
+body::-webkit-scrollbar {
+    width: 1em;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e3e7ff; 
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background: #a4cbff; 
+}
 
 @media (max-width: 575px) {
     .form-row  {
@@ -228,6 +240,18 @@ input{
     .form h2{
       margin-top: 50px;   
     }      
+    body::-webkit-scrollbar {
+        width: 1em;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #e3e7ff; 
+      border-radius: 20px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #a4cbff; 
+    }
 }
  @media (max-width: 1000px) {
        .thankyoumessage p{
