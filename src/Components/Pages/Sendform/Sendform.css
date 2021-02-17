@@ -3,7 +3,7 @@
     text-align: right;
     background: url('../../../images/center/motza.jpg') no-repeat center center fixed;
     background-size: cover;
-    height: 100vh;
+    height: 100%;
     content: "";
     background-size: cover;
     -webkit-background-size: cover;
@@ -205,6 +205,9 @@ input{
 
  }
  @media (max-width: 860px) {
+    .sendform{
+     height: 130%;
+    }
     .sendform img {
       height: 56px;
     }
@@ -220,6 +223,7 @@ input{
     }
     .sendform .externalLinks{
       left: 1px;
+      bottom: 2px;
     }
     .form h2{
       margin-top: 50px;   
