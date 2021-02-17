@@ -37,6 +37,9 @@
 #sideBarContent{
   padding-top:70px;  
 }
+#sideBarContent img{
+    position: relative;
+}
 
 ._2Q5t5{
     display: none; 

@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 // import 'https://unpkg.com/react-sidebar-ui@1.2.0/dist/index.css';
 import Backdrop from '../../UI/Backdrop/BackDrop';
+import pakalLogo from '../../../images/logo/pakal_logo.png';
+
 
 const sidebar = (props) => {
     return (
@@ -22,10 +24,8 @@ const sidebar = (props) => {
            bgColor= 'black'>
    
      <div id="sideBarContent">   
-        <h3>פקל קפה</h3>
-            <FontAwesomeIcon icon={faCoffee} />
-           
-  
+       
+     <img src={pakalLogo} alt="pakallogo" />
             <Item bgColor='black' dir="rtl">
               <Icon> <FontAwesomeIcon icon={faCoffee} /></Icon>  
               <Link to="/area=north" areaname="north" onClick={props.closeSideBar}>צפון</Link>       
